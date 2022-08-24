@@ -1,4 +1,5 @@
 from classes.MultipleChoice import MultipleChoice
+from classes.Numeric import Numeric
 from classes.OneAnswer import OneAnswer
 from classes.TrueFalse import TrueFalse
 from classes.Answer import Answer
@@ -14,4 +15,8 @@ print(printedQuestion)
 
 oneAnswer = OneAnswer("Test/C3","MC1","Color del caballo blanco de Santiago",[Answer("Blanco"),Answer("White"),Answer("Txuria"),Answer("Blanche")],"Gracias, amigo")
 printedQuestion = oneAnswer.printQuestion()
+print(printedQuestion)
+
+numeric = Numeric("Test/C3","MC1","Valor de Pi",[Answer("3.14",numericTolerance="0.01")],"Gracias, amigo")
+printedQuestion = numeric.printQuestion()
 print(printedQuestion)
