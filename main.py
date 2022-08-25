@@ -6,6 +6,8 @@ from classes.OneAnswer import OneAnswer
 from classes.TrueFalse import TrueFalse
 from classes.Answer import Answer
 from classes.MultipleChoice import MultipleChoice
+from misc.ExplorerOpen import ExplorerOpen
+
 
 """ trueFalse = TrueFalse("Test/C1","TF1","Primera pregunta",[Answer("T")],"Bravo, moreno")
 printedQuestion = trueFalse.printQuestion()
@@ -26,4 +28,6 @@ print(printedQuestion)
 
 from excel.ExcelCreator import ExcelCreator
 
-excel = ExcelCreator(True,True,True,True)
+excel = ExcelCreator(True,True,True,True,'C:\\Users\\mlvil\\Desktop')
+ExplorerOpen.ExplorerOpen(excel.path)
+ExplorerOpen.ExplorerOpen(excel.path + '\\' + excel.filename)
