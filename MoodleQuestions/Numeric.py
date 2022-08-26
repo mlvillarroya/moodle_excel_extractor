@@ -1,4 +1,4 @@
-from classes.Question import Question
+from MoodleQuestions.Question import Question
 
 class Numeric(Question):
 

@@ -1,12 +1,13 @@
 from ctypes import alignment
 from turtle import color
-from classes.MultipleChoice import MultipleChoice
-from classes.Numeric import Numeric
-from classes.OneAnswer import OneAnswer
-from classes.TrueFalse import TrueFalse
-from classes.Answer import Answer
-from classes.MultipleChoice import MultipleChoice
+from MoodleQuestions.MultipleChoice import MultipleChoice
+from MoodleQuestions.Numeric import Numeric
+from MoodleQuestions.OneAnswer import OneAnswer
+from MoodleQuestions.TrueFalse import TrueFalse
+from MoodleQuestions.Answer import Answer
+from MoodleQuestions.MultipleChoice import MultipleChoice
 from misc.ExplorerOpen import ExplorerOpen
+import misc.Constants as CS
 
 
 """ trueFalse = TrueFalse("Test/C1","TF1","Primera pregunta",[Answer("T")],"Bravo, moreno")
@@ -28,6 +29,6 @@ print(printedQuestion)
 
 from excel.ExcelCreator import ExcelCreator
 
-excel = ExcelCreator(True,True,True,True,'C:\\Users\\mlvil\\Desktop')
+excel = ExcelCreator(True,True,True,True,demoData = True)
 ExplorerOpen.ExplorerOpen(excel.path)
 ExplorerOpen.ExplorerOpen(excel.path + '\\' + excel.filename)

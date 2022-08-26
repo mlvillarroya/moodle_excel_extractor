@@ -1,13 +1,16 @@
-from classes.Question import Question
+from MoodleQuestions.Question import Question
 
-class OneAnswer(Question):
+class MultipleChoice(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
         Question.__init__(self,category,code,question,answersList,generalFeedback)
         self.completeAnswer = ''
         for index,answer in enumerate(answersList):
+            value = "%" + answer.value + "%" if answer.value != '' else ''
+            answerValue = "=" if index == 0 else "~" + value
+            feedback = "#" + answer.feedback if answer.feedback != '' else ''
             nextLine = "\n" if index < len(answersList) - 1 else ''
-            self.completeAnswer = self.completeAnswer + "=%100%" + answer.answer + nextLine
+            self.completeAnswer = self.completeAnswer + answerValue + answer.answer + feedback + nextLine
 
         self.feedback = "####" + generalFeedback if generalFeedback != '' else ''
 
