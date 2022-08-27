@@ -5,6 +5,8 @@ import misc.Constants as CS
 class MultipleChoice(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
+        if code is None or question is None or answersList is None or len(answersList) < 2 or answersList[0].value is None or answersList[1].value is None:
+            raise Exception('Argument cannot be None')
         Question.__init__(self,category,code,question,answersList,generalFeedback)
         self.completeAnswer = ''
         for index,answer in enumerate(answersList):
@@ -22,25 +24,27 @@ class MultipleChoice(Question):
                 + self.feedback + "\n" \
                 + "}"
 
-    def createAnswersFromArray(answerArray,badAnswersPoints):
+    def createMultipleChoiceAnswersFromArray(answerArray,badAnswersPoints):
         answers = []
         for i, answer in enumerate(answerArray):
-            if i==0: createdAnswer = Answer(answer,value="100")
-            elif answer != '' and answer != None: createdAnswer = Answer(answer,value=badAnswersPoints)
+            if (i==0 or i==1) and answer is None: raise Exception("Value cannot be null")
+            elif i==0: createdAnswer = Answer(answer,value="100")
+            elif answer != None: createdAnswer = Answer(answer,value=badAnswersPoints)
             else: continue
             answers.append(createdAnswer)
         return answers
 
-    def createQuestionsFromDictionaryArray(dictionaryArray,mainCategory):
+    def createMultipleChoiceQuestionsFromDictionaryArray(dictionaryArray,mainCategory):
         questionsArray = []
         for i,question in enumerate(dictionaryArray):
-            answers = MultipleChoice.createAnswersFromArray([question[CS.MULTIPLE_CHOICE_CORRECT_ANSWER_TITLE],\
+            category = mainCategory + question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] if question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] else ''
+            answers = MultipleChoice.createMultipleChoiceAnswersFromArray([question[CS.MULTIPLE_CHOICE_CORRECT_ANSWER_TITLE],\
                                                             question[CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_1_TITLE],\
                                                             question[CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_2_TITLE],\
                                                             question[CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_3_TITLE],\
                                                             question[CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_4_TITLE]],\
                                                             question[CS.MULTIPLE_CHOICE_BAD_ANSWER_POINTS_TITLE])
-            question=MultipleChoice(mainCategory + question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE],\
+            question=MultipleChoice(category,\
                             'MC'+str(i),\
                             question[CS.MULTIPLE_CHOICE_QUESTION_TITLE],\
                             answers,\
