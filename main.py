@@ -28,7 +28,18 @@ print(printedQuestion)
  """
 
 from excel.ExcelCreator import ExcelCreator
+from excel.ExcelExtractor import ExcelExtractor
 
-excel = ExcelCreator(True,True,True,True,demoData = True)
-ExplorerOpen.ExplorerOpen(excel.path)
-ExplorerOpen.ExplorerOpen(excel.path + '\\' + excel.filename)
+#template = ExcelCreator(True,True,True,True,demoData = True)
+#ExplorerOpen.ExplorerOpen(excel.path)
+#ExplorerOpen.ExplorerOpen(excel.path + '\\' + excel.filename)
+excel = ExcelExtractor('MoodleExcel.xlsx')
+multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
+trueFalseQuestions = excel.ExtractQuestionsFromSheet(CS.TRUE_FALSE_SHEET_NAME)
+numericQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
+oneAnswerQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
+
+multipleChoiceQuestions = MultipleChoice.createQuestionsFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
+for question in multipleChoiceQuestions:
+    print(question.printQuestion())
+pass
