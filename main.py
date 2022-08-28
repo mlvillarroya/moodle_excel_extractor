@@ -40,6 +40,6 @@ numericQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
 oneAnswerQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
 
 multipleChoiceQuestions = MultipleChoice.createMultipleChoiceQuestionsFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
-for question in multipleChoiceQuestions:
+for question in multipleChoiceQuestions.questionsArray:
     print(question.printQuestion())
 pass

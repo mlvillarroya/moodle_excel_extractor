@@ -10,7 +10,7 @@ class Question:
         pass
 
     def printQuestion(self):
-        return "$CATEGORY: " + self.category + "\n" \
-                + "\n" \
+        category = "$CATEGORY: " + self.category + "\n" + "\n" if self.category != '' else ''
+        return  category \
                 + self.createQuestionText() \
                 + "\n"
