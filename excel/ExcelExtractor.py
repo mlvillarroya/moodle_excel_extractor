@@ -6,7 +6,9 @@ from MoodleQuestions.MultipleChoice import MultipleChoice
 class ExcelExtractor:
     def __init__(self, filepath):
         self.wb = openpyxl.load_workbook(filepath)
-        self.mainCategory = self.wb[CS.SETTINGS_SHEET_NAME]['A2'].value + '/' + self.wb[CS.SETTINGS_SHEET_NAME]['B2'].value + '/'
+        subjectName = self.wb[CS.SETTINGS_SHEET_NAME][CS.SHEET_SUBJECT_NAME_CELL].value + '/' if  self.wb[CS.SETTINGS_SHEET_NAME][CS.SHEET_SUBJECT_NAME_CELL].value else ''
+        chapterName =  self.wb[CS.SETTINGS_SHEET_NAME][CS.SHEET_CHAPTER_NAME_CELL].value  if self.wb[CS.SETTINGS_SHEET_NAME][CS.SHEET_CHAPTER_NAME_CELL].value else ''      
+        self.mainCategory = subjectName + chapterName
 
     def ExtractQuestionsFromSheet(self,sheetName):
         ws = self.wb[sheetName]

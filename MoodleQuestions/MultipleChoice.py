@@ -47,7 +47,7 @@ class MultipleChoice(Question):
         successfullAnswers = 0
         for i,question in enumerate(dictionaryArray):
             try:
-                category = mainCategory + question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] if question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] else ''
+                category = mainCategory + '/' + question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] if question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] else mainCategory
                 answers = MultipleChoice.createMultipleChoiceAnswersFromArray([question[CS.MULTIPLE_CHOICE_CORRECT_ANSWER_TITLE],\
                                                                 question[CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_1_TITLE],\
                                                                 question[CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_2_TITLE],\
