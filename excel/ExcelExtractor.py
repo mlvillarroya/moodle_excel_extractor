@@ -16,7 +16,7 @@ class ExcelExtractor:
         questionsArray = []
         for cell in ws[1]:
             headers.append(cell.value)
-        for row in ws[2:ws.max_column]:
+        for row in ws[2:10000]:
             if row[0].value == None: break
             questionData = {}
             for i, cell in enumerate(row):
