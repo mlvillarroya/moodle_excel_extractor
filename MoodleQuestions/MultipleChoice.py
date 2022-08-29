@@ -11,7 +11,7 @@ class GeneratedMultipleChoiceQuestions:
 class MultipleChoice(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
-        if code is None or question is None or answersList is None or len(answersList) < 2 or answersList[0].value is None or answersList[1].value is None:
+        if len(answersList) < 2 or answersList[1].value is None:
             raise Exception('Argument cannot be None')
         Question.__init__(self,category,code,question,answersList,generalFeedback)
         self.completeAnswer = ''
@@ -21,8 +21,6 @@ class MultipleChoice(Question):
             feedback = "#" + answer.feedback if answer.feedback != '' else ''
             nextLine = "\n" if index < len(answersList) - 1 else ''
             self.completeAnswer = self.completeAnswer + answerValue + answer.answer + feedback + nextLine
-
-        self.feedback = "####" + generalFeedback + "\n" if generalFeedback else ''
 
     def createQuestionText(self):
         return "::" + self.code + "::" + self.question + "{" + "\n" \

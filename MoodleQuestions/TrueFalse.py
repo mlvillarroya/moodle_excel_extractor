@@ -11,18 +11,7 @@ class GeneratedTrueFalseQuestions:
 class TrueFalse(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
-        if code is None or question is None or answersList is None or len(answersList) < 1 or answersList[0].value is None:
-            raise Exception('Argument cannot be None')
         Question.__init__(self,category,code,question,answersList,generalFeedback)
-        if answersList[0].answer != 'True' or \
-            answersList[0].answer != 'T' or \
-            answersList[0].answer != 'true' or \
-            answersList[0].answer != 't':
-                answersList[0].answer = 'T'
-        else: answersList[0].answer = 'F'
-
-        self.feedback = "####" + generalFeedback + "\n" if generalFeedback else ''
-        self.answer = answersList[0].answer
 
     def createQuestionText(self):
         return "::" + self.code + "::" + self.question + "{" + "\n" \
@@ -30,16 +19,13 @@ class TrueFalse(Question):
                 + self.feedback \
                 + "}"
     
-    # def createMultipleChoiceAnswersFromArray(answerArray,badAnswersPoints):
-    #     answers = []
-    #     if not badAnswersPoints: badAnswersPoints = '0'
-    #     for i, answer in enumerate(answerArray):
-    #         if (i==0 or i==1) and answer is None: raise Exception("Value cannot be null")
-    #         elif i==0: createdAnswer = Answer(answer,value="100")
-    #         elif answer != None: createdAnswer = Answer(answer,value=badAnswersPoints)
-    #         else: continue
-    #         answers.append(createdAnswer)
-    #     return answers
+    def createAnswerFromList(self):
+        if self.answersList[0].answer != 'True' or \
+            self.answersList[0].answer != 'T' or \
+            self.answersList[0].answer != 'true' or \
+            self.answersList[0].answer != 't':
+                return 'T'
+        else: return 'F'
 
     def createTrueFalseQuestionsFromDictionaryArray(dictionaryArray,mainCategory):
         questionsArray = []
