@@ -1,11 +1,13 @@
 from ctypes import alignment
 from turtle import color
-from MoodleQuestions.MultipleChoice import MultipleChoice
-from MoodleQuestions.Numeric import Numeric
-from MoodleQuestions.OneAnswer import OneAnswer
-from MoodleQuestions.TrueFalse import TrueFalse
-from MoodleQuestions.Answer import Answer
-from MoodleQuestions.MultipleChoice import MultipleChoice
+from MoodleQuestions.Array.MultipleChoiceArray import MultipleChoiceArray
+from MoodleQuestions.Array.TrueFalseArray import TrueFalseArray
+from MoodleQuestions.Base.MultipleChoice import MultipleChoice
+from MoodleQuestions.Base.Numeric import Numeric
+from MoodleQuestions.Base.OneAnswer import OneAnswer
+from MoodleQuestions.Base.TrueFalse import TrueFalse
+from MoodleQuestions.Base.Answer import Answer
+from MoodleQuestions.Base.MultipleChoice import MultipleChoice
 from misc.ExplorerOpen import ExplorerOpen
 import misc.Constants as CS
 
@@ -34,17 +36,18 @@ from excel.ExcelExtractor import ExcelExtractor
 # ExplorerOpen.ExplorerOpen(template.path)
 # ExplorerOpen.ExplorerOpen(template.path + '\\' + template.filename)
 excel = ExcelExtractor('MoodleExcel.xlsx')
-# multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
+multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
 trueFalseDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.TRUE_FALSE_SHEET_NAME)
 # numericQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
 # oneAnswerQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
 
-# multipleChoiceQuestions = MultipleChoice.createMultipleChoiceQuestionsFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
-# for question in multipleChoiceQuestions.questionsArray:
+# trueFalseQuestions = TrueFalseArray()
+# trueFalseQuestions.createQuestionsArrayFromDictionaryArray(trueFalseDictionaryQuestions,excel.mainCategory)
+# for question in trueFalseQuestions.questionsArray:
 #     print(question.printQuestion())
-
-trueFalseQuestions = TrueFalse.createTrueFalseQuestionsFromDictionaryArray(trueFalseDictionaryQuestions,excel.mainCategory)
-for question in trueFalseQuestions.questionsArray:
+multipleChoiceQuestions = MultipleChoiceArray()
+multipleChoiceQuestions.createQuestionsArrayFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
+for question in multipleChoiceQuestions.questionsArray:
     print(question.printQuestion())
 
 pass

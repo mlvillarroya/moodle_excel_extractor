@@ -1,14 +1,18 @@
-from MoodleQuestions.Question import Question
+from MoodleQuestions.Base.Question import Question
 
-class Numeric(Question):
+class OneAnswer(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
         Question.__init__(self,category,code,question,answersList,generalFeedback)
-        self.answer = answersList[0]
+        self.completeAnswer = ''
+        for index,answer in enumerate(answersList):
+            nextLine = "\n" if index < len(answersList) - 1 else ''
+            self.completeAnswer = self.completeAnswer + "=%100%" + answer.answer + nextLine
+
         self.feedback = "####" + generalFeedback if generalFeedback != '' else ''
 
     def createQuestionText(self):
         return "::" + self.code + "::" + self.question + "{" + "\n" \
-                + "#=%100%" + self.answer.answer + ":" + self.answer.numericTolerance + "\n" \
+                + self.completeAnswer + "\n" \
                 + self.feedback + "\n" \
                 + "}"

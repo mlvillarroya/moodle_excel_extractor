@@ -13,7 +13,10 @@ class Question:
         self.answer = self.createAnswerFromList()
 
     def createQuestionText(self):
-        pass
+        return "::" + self.code + "::" + self.question + "{" + "\n" \
+                + self.answer + "\n" \
+                + self.feedback \
+                + "}"
 
     def createAnswerFromList(self):
         pass

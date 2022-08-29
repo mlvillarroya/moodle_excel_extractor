@@ -1,7 +1,5 @@
-import webbrowser
 import openpyxl
 import misc.Constants as CS
-from MoodleQuestions.MultipleChoice import MultipleChoice
 
 class ExcelExtractor:
     def __init__(self, filepath):
