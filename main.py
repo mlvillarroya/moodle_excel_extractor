@@ -1,6 +1,8 @@
 from ctypes import alignment
 from turtle import color
 from MoodleQuestions.Array.MultipleChoiceArray import MultipleChoiceArray
+from MoodleQuestions.Array.NumericArray import NumericArray
+from MoodleQuestions.Array.OneAnswerArray import OneAnswerArray
 from MoodleQuestions.Array.TrueFalseArray import TrueFalseArray
 from MoodleQuestions.Base.MultipleChoice import MultipleChoice
 from MoodleQuestions.Base.Numeric import Numeric
@@ -36,18 +38,26 @@ from excel.ExcelExtractor import ExcelExtractor
 # ExplorerOpen.ExplorerOpen(template.path)
 # ExplorerOpen.ExplorerOpen(template.path + '\\' + template.filename)
 excel = ExcelExtractor('MoodleExcel.xlsx')
-multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
-trueFalseDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.TRUE_FALSE_SHEET_NAME)
-# numericQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
-# oneAnswerQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
+# multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
+# trueFalseDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.TRUE_FALSE_SHEET_NAME)
+# oneAnswerDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
+numericDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
 
 # trueFalseQuestions = TrueFalseArray()
 # trueFalseQuestions.createQuestionsArrayFromDictionaryArray(trueFalseDictionaryQuestions,excel.mainCategory)
 # for question in trueFalseQuestions.questionsArray:
 #     print(question.printQuestion())
-multipleChoiceQuestions = MultipleChoiceArray()
-multipleChoiceQuestions.createQuestionsArrayFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
-for question in multipleChoiceQuestions.questionsArray:
+# multipleChoiceQuestions = MultipleChoiceArray()
+# multipleChoiceQuestions.createQuestionsArrayFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
+# for question in multipleChoiceQuestions.questionsArray:
+#     print(question.printQuestion())
+# oneAnswerQuestions = OneAnswerArray()
+# oneAnswerQuestions.createQuestionsArrayFromDictionaryArray(oneAnswerDictionaryQuestions,excel.mainCategory)
+# for question in oneAnswerQuestions.questionsArray:
+#     print(question.printQuestion())
+numericQuestions = NumericArray()
+numericQuestions.createQuestionsArrayFromDictionaryArray(numericDictionaryQuestions,excel.mainCategory)
+for question in numericQuestions.questionsArray:
     print(question.printQuestion())
 
 pass

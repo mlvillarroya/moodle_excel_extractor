@@ -4,15 +4,11 @@ class OneAnswer(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
         Question.__init__(self,category,code,question,answersList,generalFeedback)
-        self.completeAnswer = ''
-        for index,answer in enumerate(answersList):
-            nextLine = "\n" if index < len(answersList) - 1 else ''
-            self.completeAnswer = self.completeAnswer + "=%100%" + answer.answer + nextLine
+        
+    def createAnswerFromList(self):
+        completeAnswer = ''
+        for index,answer in enumerate(self.answersList):
+            nextLine = "\n" if index < len(self.answersList) - 1 else ''
+            completeAnswer = completeAnswer + "=%100%" + answer.answer + nextLine
+        return completeAnswer
 
-        self.feedback = "####" + generalFeedback if generalFeedback != '' else ''
-
-    def createQuestionText(self):
-        return "::" + self.code + "::" + self.question + "{" + "\n" \
-                + self.completeAnswer + "\n" \
-                + self.feedback + "\n" \
-                + "}"

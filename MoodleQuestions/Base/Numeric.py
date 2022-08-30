@@ -3,12 +3,9 @@ from MoodleQuestions.Base.Question import Question
 class Numeric(Question):
 
     def __init__(self,category,code,question,answersList,generalFeedback):
+        tryParse = float(answersList[0].answer)
         Question.__init__(self,category,code,question,answersList,generalFeedback)
-        self.answer = answersList[0]
-        self.feedback = "####" + generalFeedback if generalFeedback != '' else ''
 
-    def createQuestionText(self):
-        return "::" + self.code + "::" + self.question + "{" + "\n" \
-                + "#=%100%" + self.answer.answer + ":" + self.answer.numericTolerance + "\n" \
-                + self.feedback + "\n" \
-                + "}"
+    def createAnswerFromList(self):
+        if self.answersList[0].numericTolerance is None: self.answersList[0].numericTolerance = 0
+        return '#' + str(self.answersList[0].answer) + ':' + str(self.answersList[0].numericTolerance)
