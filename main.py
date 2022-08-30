@@ -1,5 +1,3 @@
-from ctypes import alignment
-from turtle import color
 from MoodleQuestions.Array.MultipleChoiceArray import MultipleChoiceArray
 from MoodleQuestions.Array.NumericArray import NumericArray
 from MoodleQuestions.Array.OneAnswerArray import OneAnswerArray
@@ -12,7 +10,10 @@ from MoodleQuestions.Base.Answer import Answer
 from MoodleQuestions.Base.MultipleChoice import MultipleChoice
 from misc.ExplorerOpen import ExplorerOpen
 import misc.Constants as CS
-
+from misc.Windows import setDpiAwareness
+import tkinter as tk
+from tkinter import ttk
+from GUI.Style import NotebookStyle, FrameStyle
 
 """ trueFalse = TrueFalse("Test/C1","TF1","Primera pregunta",[Answer("T")],"Bravo, moreno")
 printedQuestion = trueFalse.printQuestion()
@@ -37,11 +38,11 @@ from excel.ExcelExtractor import ExcelExtractor
 # template = ExcelCreator(True,True,True,True,demoData = True)
 # ExplorerOpen.ExplorerOpen(template.path)
 # ExplorerOpen.ExplorerOpen(template.path + '\\' + template.filename)
-excel = ExcelExtractor('MoodleExcel.xlsx')
+# excel = ExcelExtractor('MoodleExcel.xlsx')
 # multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
 # trueFalseDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.TRUE_FALSE_SHEET_NAME)
 # oneAnswerDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
-numericDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
+# numericDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
 
 # trueFalseQuestions = TrueFalseArray()
 # trueFalseQuestions.createQuestionsArrayFromDictionaryArray(trueFalseDictionaryQuestions,excel.mainCategory)
@@ -55,9 +56,51 @@ numericDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NA
 # oneAnswerQuestions.createQuestionsArrayFromDictionaryArray(oneAnswerDictionaryQuestions,excel.mainCategory)
 # for question in oneAnswerQuestions.questionsArray:
 #     print(question.printQuestion())
-numericQuestions = NumericArray()
-numericQuestions.createQuestionsArrayFromDictionaryArray(numericDictionaryQuestions,excel.mainCategory)
-for question in numericQuestions.questionsArray:
-    print(question.printQuestion())
+# numericQuestions = NumericArray()
+# numericQuestions.createQuestionsArrayFromDictionaryArray(numericDictionaryQuestions,excel.mainCategory)
+# for question in numericQuestions.questionsArray:
+#     print(question.printQuestion())
 
-pass
+# pass
+
+setDpiAwareness()
+
+root = tk.Tk()
+root.geometry("1024x768")
+root.resizable(False,False)
+root.title("Moodle questions creator")
+root.iconbitmap("static\\icon_16.ico")
+
+#styles
+style = ttk.Style()
+NotebookStyle.createNotebookStyle(style)
+FrameStyle.createFrameStyle(style)
+
+# create a notebook
+notebook = ttk.Notebook(root, padding=10)
+notebook.pack(pady=10, fill='both', expand=True)
+
+# create notebook frames
+instructionsFrame = ttk.Frame(notebook)
+createExcelFrame = ttk.Frame(notebook)
+extractExcelFrame = ttk.Frame(notebook)
+
+instructionsFrame.pack(fill='both', expand=True)
+createExcelFrame.pack(fill='both', expand=True)
+extractExcelFrame.pack(fill='both', expand=True)
+
+# add frames to notebook
+notebook.add(instructionsFrame, text='Instructions')
+notebook.add(createExcelFrame, text='Create Excel')
+notebook.add(extractExcelFrame, text='Import Excel')
+
+# frame instructions: Create text
+instructionTitle = ttk.Label(instructionsFrame,text="Instructions")
+instructionTitle.pack()
+instructionsMessage = ttk.Label(instructionsFrame,text=" 1 - Generate Excel workbook with the needed sheets.\n \
+2 - Fill the workbook with the questions. Fields with (*) are mandatory.\n \
+3 - Import the workbook and generate a GIFT .txt file.\n \
+4 - Use the GIFT .txt file to import directly to Moodle")
+instructionsMessage.pack(fill='x')
+
+root.mainloop()
