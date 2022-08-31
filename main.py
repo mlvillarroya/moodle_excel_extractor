@@ -13,7 +13,7 @@ import misc.Constants as CS
 from misc.Windows import setDpiAwareness
 import tkinter as tk
 from tkinter import ttk
-from GUI.Style import NotebookStyle, FrameStyle
+from GUI.Style import Style
 
 """ trueFalse = TrueFalse("Test/C1","TF1","Primera pregunta",[Answer("T")],"Bravo, moreno")
 printedQuestion = trueFalse.printQuestion()
@@ -34,6 +34,7 @@ print(printedQuestion)
 
 from excel.ExcelCreator import ExcelCreator
 from excel.ExcelExtractor import ExcelExtractor
+from GUI.Frames.CreateExcelFrame import CreateExcelFrame
 
 # template = ExcelCreator(True,True,True,True,demoData = True)
 # ExplorerOpen.ExplorerOpen(template.path)
@@ -71,18 +72,13 @@ root.resizable(False,False)
 root.title("Moodle questions creator")
 root.iconbitmap("static\\icon_16.ico")
 
-#styles
-style = ttk.Style()
-NotebookStyle.createNotebookStyle(style)
-FrameStyle.createFrameStyle(style)
-
 # create a notebook
 notebook = ttk.Notebook(root, padding=10)
-notebook.pack(pady=10, fill='both', expand=True)
+notebook.pack(fill='both', expand=True)
 
 # create notebook frames
 instructionsFrame = ttk.Frame(notebook)
-createExcelFrame = ttk.Frame(notebook)
+createExcelFrame = CreateExcelFrame(notebook)
 extractExcelFrame = ttk.Frame(notebook)
 
 instructionsFrame.pack(fill='both', expand=True)
@@ -90,9 +86,9 @@ createExcelFrame.pack(fill='both', expand=True)
 extractExcelFrame.pack(fill='both', expand=True)
 
 # add frames to notebook
-notebook.add(instructionsFrame, text='Instructions')
 notebook.add(createExcelFrame, text='Create Excel')
 notebook.add(extractExcelFrame, text='Import Excel')
+notebook.add(instructionsFrame, text='Instructions')
 
 # frame instructions: Create text
 instructionTitle = ttk.Label(instructionsFrame,text="Instructions")
@@ -101,6 +97,9 @@ instructionsMessage = ttk.Label(instructionsFrame,text=" 1 - Generate Excel work
 2 - Fill the workbook with the questions. Fields with (*) are mandatory.\n \
 3 - Import the workbook and generate a GIFT .txt file.\n \
 4 - Use the GIFT .txt file to import directly to Moodle")
-instructionsMessage.pack(fill='x')
+instructionsMessage.pack()
+
+#styles
+Style.ConfigureGuiStyle()
 
 root.mainloop()
