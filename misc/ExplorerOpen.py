@@ -8,7 +8,7 @@ class ExplorerOpen:
         import sys
         if 'linux' in sys.platform: 
             os.system('xdg-open "%s"' % path)
-        elif 'windows' in sys.platform: 
+        elif 'win32' in sys.platform: 
             os.startfile(path)
         else:
             raise RuntimeError("Unsupported operating system: {}".format(sys.platform))
