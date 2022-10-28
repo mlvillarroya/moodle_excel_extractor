@@ -35,6 +35,7 @@ print(printedQuestion)
 from excel.ExcelCreator import ExcelCreator
 from excel.ExcelExtractor import ExcelExtractor
 from GUI.Frames.CreateExcelFrame import CreateExcelFrame
+from GUI.Frames.CreateInstructionsFrame import CreateInstructionsFrame
 
 # template = ExcelCreator(True,True,True,True,demoData = True)
 # ExplorerOpen.ExplorerOpen(template.path)
@@ -67,17 +68,16 @@ from GUI.Frames.CreateExcelFrame import CreateExcelFrame
 setDpiAwareness()
 
 root = tk.Tk()
-root.geometry("1024x768")
+root.geometry("768x768")
 root.resizable(False,False)
 root.title("Moodle questions creator")
-root.iconbitmap("static\\icon_16.ico")
 
 # create a notebook
 notebook = ttk.Notebook(root, padding=10)
 notebook.pack(fill='both', expand=True)
 
 # create notebook frames
-instructionsFrame = ttk.Frame(notebook)
+instructionsFrame = CreateInstructionsFrame(notebook)
 createExcelFrame = CreateExcelFrame(notebook)
 extractExcelFrame = ttk.Frame(notebook)
 
@@ -89,15 +89,6 @@ extractExcelFrame.pack(fill='both', expand=True)
 notebook.add(createExcelFrame, text='Create Excel')
 notebook.add(extractExcelFrame, text='Import Excel')
 notebook.add(instructionsFrame, text='Instructions')
-
-# frame instructions: Create text
-instructionTitle = ttk.Label(instructionsFrame,text="Instructions")
-instructionTitle.pack()
-instructionsMessage = ttk.Label(instructionsFrame,text=" 1 - Generate Excel workbook with the needed sheets.\n \
-2 - Fill the workbook with the questions. Fields with (*) are mandatory.\n \
-3 - Import the workbook and generate a GIFT .txt file.\n \
-4 - Use the GIFT .txt file to import directly to Moodle")
-instructionsMessage.pack()
 
 #styles
 Style.ConfigureGuiStyle()

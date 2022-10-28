@@ -6,6 +6,7 @@ from excel.sheets.OneAnswerSheet import OneAnswerSheet
 from excel.sheets.SettingsSheet import SettingsSheet
 import pathlib
 import misc.Constants as CS
+from os import path as OSPath
 
 class ExcelCreator:
 
@@ -23,4 +24,4 @@ class ExcelCreator:
             TrueFalseSheet.createTrueFalseSheet(self.wb, demoData)
         if createNumeric:
             NumericSheet.createNumericSheet(self.wb, demoData)
-        self.wb.save(self.path + '\\' + self.filename)
+        self.wb.save(OSPath.join(self.path,self.filename))
