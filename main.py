@@ -1,17 +1,16 @@
 """Main program"""
 import tkinter as tk
 from tkinter import ttk
+from MoodleObjects.Questions import MultipleChoice
+from MoodleObjects.Questions import Numeric
+from MoodleObjects.Questions import OneAnswer
+from MoodleObjects.Questions import TrueFalse
+from MoodleObjects.Answers import Answer
 from MoodleQuestions.Array.MultipleChoiceArray import MultipleChoiceArray
 from MoodleQuestions.Array.NumericArray import NumericArray
 from MoodleQuestions.Array.OneAnswerArray import OneAnswerArray
 from MoodleQuestions.Array.TrueFalseArray import TrueFalseArray
-from MoodleQuestions.Question_answer.Question_types import MultipleChoice
-from MoodleQuestions.Question_answer.Question_types import Numeric
-from MoodleQuestions.Question_answer.Question_types import OneAnswer
-from MoodleQuestions.Question_answer.Question_types import TrueFalse
-from MoodleQuestions.Question_answer.Question_types import Answer
-from MoodleQuestions.Question_answer.Question_types import MultipleChoice
-from misc.ExplorerOpen import ExplorerOpen
+
 import misc.Constants as CS
 from misc import Windows
 

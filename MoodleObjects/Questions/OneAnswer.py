@@ -1,10 +1,8 @@
 """One answer questions. Inherits from Question"""
-from MoodleQuestions.Question_answer import Question
+from .Base.Question import Question
 
 class OneAnswer(Question):
     """Class OneAnswer inherits from Question"""
-    def __init__(self,category,code,question,answersList,generalFeedback):
-        super().__init__(category,code,question,answersList,generalFeedback)
 
     def create_answer_from_list(self):
         """Function to create custom text for one answer questions"""

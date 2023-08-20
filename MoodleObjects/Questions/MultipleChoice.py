@@ -1,5 +1,5 @@
 """Multiple choice questions. Inherits from Question"""
-from MoodleQuestions.Question_answer import Question
+from .Base.Question import Question
 
 class MultipleChoice(Question):
     """Class MultipleChoice inherits from Question"""

@@ -1,5 +1,5 @@
 """Numeric questions. Inherits from Question"""
-from MoodleQuestions.Question_answer import Question
+from .Base.Question import Question
 
 class Numeric(Question):
     """Class Numeric inherits from Question"""
