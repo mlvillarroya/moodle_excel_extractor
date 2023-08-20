@@ -1,18 +1,20 @@
+"""Main program"""
+import tkinter as tk
+from tkinter import ttk
 from MoodleQuestions.Array.MultipleChoiceArray import MultipleChoiceArray
 from MoodleQuestions.Array.NumericArray import NumericArray
 from MoodleQuestions.Array.OneAnswerArray import OneAnswerArray
 from MoodleQuestions.Array.TrueFalseArray import TrueFalseArray
-from MoodleQuestions.Base.MultipleChoice import MultipleChoice
-from MoodleQuestions.Base.Numeric import Numeric
-from MoodleQuestions.Base.OneAnswer import OneAnswer
-from MoodleQuestions.Base.TrueFalse import TrueFalse
-from MoodleQuestions.Base.Answer import Answer
-from MoodleQuestions.Base.MultipleChoice import MultipleChoice
+from MoodleQuestions.Question_answer.Question_types import MultipleChoice
+from MoodleQuestions.Question_answer.Question_types import Numeric
+from MoodleQuestions.Question_answer.Question_types import OneAnswer
+from MoodleQuestions.Question_answer.Question_types import TrueFalse
+from MoodleQuestions.Question_answer.Question_types import Answer
+from MoodleQuestions.Question_answer.Question_types import MultipleChoice
 from misc.ExplorerOpen import ExplorerOpen
 import misc.Constants as CS
-from misc.Windows import setDpiAwareness
-import tkinter as tk
-from tkinter import ttk
+from misc import Windows
+
 from GUI.Style import Style
 
 """ trueFalse = TrueFalse("Test/C1","TF1","Primera pregunta",[Answer("T")],"Bravo, moreno")
@@ -65,7 +67,7 @@ from GUI.Frames.CreateInstructionsFrame import CreateInstructionsFrame
 
 # pass
 
-setDpiAwareness()
+Windows.setDpiAwareness()
 
 root = tk.Tk()
 root.geometry("768x768")
