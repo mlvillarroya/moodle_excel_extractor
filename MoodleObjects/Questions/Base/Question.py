@@ -4,10 +4,9 @@ class Question:
     def __init__(self, category, code, question, answers_list, general_feedback):
         if code is None or \
             question is None or \
-            answers_list is None or \
-            answers_list[0].value is None:
+            answers_list is None:
             raise ValueError('Argument cannot be None')
-        self.__category = category
+        self.__category = category or ''
         self.__code = code
         self.__question = question
         self.__answers_list = answers_list
