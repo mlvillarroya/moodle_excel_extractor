@@ -1,13 +1,28 @@
+"""Tests to question class"""
 import pytest
-from MoodleObjects.Questions import *
+import misc.Constants as CS
+from MoodleObjects.Questions import Question, MultipleChoice
+from MoodleObjects.Answers import Answer
+
+ANSWER1 = Answer('Answer text1','Feedback1',0,0)
+ANSWER2 = Answer('Answer text2','Feedback2',0,0)
+ANSWER3 = Answer('Answer text3','Feedback3',0,0)
 
 QUESTION_CATEGORY = 'Question category'
 QUESTION_CODE = 'Question code'
 QUESTION_TEXT = 'Question_text'
-ANSWER_LIST = ['Answer1','Answer2','Answer3']
+ANSWER_LIST = [ANSWER1,ANSWER2,ANSWER3]
 GENERAL_FEEDBACK = 'General feedback'
 
-def test_create_base_question_ok():
+QUESTION_BASE_CORRECT_ANSWER = ''
+
+MULTIPLE_CHOICE_QUESTION_TEXT = "::Question code::Question_text{\n\n####General feedback\n}"
+MULTIPLE_CHOICE_PRINTED_QUESTION = \
+    "$CATEGORY: Question category\n\n::Question code::Question_text{\n\n####General feedback\n}\n"
+MULTIPLE_CHOICE_QUESTION_CORRECT_ANSWER = \
+    '=Answer text1#Feedback1\n~%0%Answer text2#Feedback2\n~%0%Answer text3#Feedback3'
+
+def test_base_question_create_question_ok():
     """Test object standard generation"""
     base_question = Question(
         QUESTION_CATEGORY,
@@ -21,8 +36,9 @@ def test_create_base_question_ok():
     assert base_question.answers_list == ANSWER_LIST
     assert base_question.general_feedback == GENERAL_FEEDBACK
     assert base_question.feedback == '####General feedback\n'
+    assert base_question.answer == ""
 
-def test_create_base_question_category_none_gets_empty():
+def test_base_question_create_question_category_none_gets_empty():
     """Test object standard generation with errors"""
     base_question = Question(
         None,
@@ -32,7 +48,7 @@ def test_create_base_question_category_none_gets_empty():
         GENERAL_FEEDBACK)
     assert base_question.category == ''
 
-def test_create_base_question_code_none_gets_exception():
+def test_base_question_create_question_code_none_gets_exception():
     """Test object standard generation"""
     with pytest.raises(ValueError) as exc_info:
         Question(
@@ -41,9 +57,9 @@ def test_create_base_question_code_none_gets_exception():
             QUESTION_TEXT,
             ANSWER_LIST,
             GENERAL_FEEDBACK)
-    assert str(exc_info.value) == 'Argument cannot be None'
+    assert str(exc_info.value) == CS.EXCEPTION_NONE_ARGUMENT
 
-def test_create_base_question_question_none_gets_exception():
+def test_base_question_create_question_question_none_gets_exception():
     """Test object standard generation"""
     with pytest.raises(ValueError) as exc_info:
         Question(
@@ -52,9 +68,9 @@ def test_create_base_question_question_none_gets_exception():
             None,
             ANSWER_LIST,
             GENERAL_FEEDBACK)
-    assert str(exc_info.value) == 'Argument cannot be None'
+    assert str(exc_info.value) == CS.EXCEPTION_NONE_ARGUMENT
 
-def test_create_base_question_answer_none_gets_exception():
+def test_base_question_create_question_answer_none_gets_exception():
     """Test object standard generation"""
     with pytest.raises(ValueError) as exc_info:
         Question(
@@ -63,9 +79,31 @@ def test_create_base_question_answer_none_gets_exception():
             QUESTION_TEXT,
             None,
             GENERAL_FEEDBACK)
-    assert str(exc_info.value) == 'Argument cannot be None'
+    assert str(exc_info.value) == CS.EXCEPTION_NONE_ARGUMENT
 
-def test_create_base_question_feedback_none_gets_empty():
+def test_base_question_create_question_answer_list_str_get_exception():
+    """Test object standard generation"""
+    with pytest.raises(ValueError) as exc_info:
+        Question(
+            QUESTION_CATEGORY,
+            QUESTION_CODE,
+            QUESTION_TEXT,
+            ['Answer1','Answer2','Answer3'],
+            GENERAL_FEEDBACK)
+    assert str(exc_info.value) == CS.EXCEPTION_LIST_ANSWERS_NEEDED
+
+def test_base_question_create_question_answer_not_list_get_exception():
+    """Test object standard generation"""
+    with pytest.raises(ValueError) as exc_info:
+        Question(
+            QUESTION_CATEGORY,
+            QUESTION_CODE,
+            QUESTION_TEXT,
+            ANSWER1,
+            GENERAL_FEEDBACK)
+    assert str(exc_info.value) == CS.EXCEPTION_LIST_ANSWERS_NEEDED
+
+def test_base_question_create_question_feedback_none_gets_empty():
     """Test object standard generation with errors"""
     base_question = Question(
         QUESTION_CATEGORY,
@@ -74,4 +112,51 @@ def test_create_base_question_feedback_none_gets_empty():
         ANSWER_LIST,
         None)
     assert base_question.general_feedback is None
-    assert base_question.feedback == ''
+    assert base_question.feedback == QUESTION_BASE_CORRECT_ANSWER
+
+def test_base_question_create_question_text_ok():
+    """Test function create question text"""
+    base_question = Question(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        ANSWER_LIST,
+        GENERAL_FEEDBACK)
+    assert base_question.create_question_text() == MULTIPLE_CHOICE_QUESTION_TEXT
+
+def test_base_question_print_question_ok():
+    """Test function print question"""
+    base_question = Question(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        ANSWER_LIST,
+        GENERAL_FEEDBACK)
+    assert base_question.print_question() == MULTIPLE_CHOICE_PRINTED_QUESTION
+
+def test_multiple_choice_question_create_question_ok():
+    """Test object standard generation"""
+    multiple_choice_question = MultipleChoice(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        ANSWER_LIST,
+        GENERAL_FEEDBACK)
+    assert multiple_choice_question.category == QUESTION_CATEGORY
+    assert multiple_choice_question.code == QUESTION_CODE
+    assert multiple_choice_question.question == QUESTION_TEXT
+    assert multiple_choice_question.answers_list == ANSWER_LIST
+    assert multiple_choice_question.general_feedback == GENERAL_FEEDBACK
+    assert multiple_choice_question.feedback == '####General feedback\n'
+    assert multiple_choice_question.answer == MULTIPLE_CHOICE_QUESTION_CORRECT_ANSWER
+
+def test_multiple_choice_question_only_one_answer_get_exception():
+    """Test object standard generation with only one answer"""
+    with pytest.raises(ValueError) as exc_info:
+        MultipleChoice(
+            QUESTION_CATEGORY,
+            QUESTION_CODE,
+            QUESTION_TEXT,
+            [ANSWER1],
+            GENERAL_FEEDBACK)
+    assert str(exc_info.value) == CS.EXCEPTION_AT_LEAST_TWO_ANSWERS
