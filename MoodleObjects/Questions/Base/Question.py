@@ -1,18 +1,22 @@
+"""Generic question class"""
+import misc.Constants as CS
+from MoodleObjects.Answers import Answer
 
 class Question:
     """Generic question class"""
-    def __init__(self, category, code, question, answers_list, general_feedback):
+    def __init__(self, category, code, question, answers_list: list[Answer], general_feedback):
         if code is None or \
             question is None or \
             answers_list is None:
-            raise ValueError('Argument cannot be None')
+            raise ValueError(CS.EXCEPTION_NONE_ARGUMENT)
+        if  not self.__is_list_of_answers(answers_list):
+            raise ValueError(CS.EXCEPTION_LIST_ANSWERS_NEEDED)
         self.__category = category or ''
         self.__code = code
         self.__question = question
         self.__answers_list = answers_list
         self.__general_feedback = general_feedback
         self.__feedback = "####" + general_feedback + "\n" if general_feedback else ''
-        self.__answer = self.create_answer_from_list()
 
     @property
     def answers_list(self):
@@ -45,14 +49,14 @@ class Question:
         return self.__feedback
 
     @property
-    def answers(self):
+    def answer(self):
         """Property: answers"""
-        return self.__answer
+        return self.create_answer_from_list()
 
     def create_question_text(self):
         """Function to create the text for a question"""
         return "::" + self.__code + "::" + self.__question + "{" + "\n" \
-                + self.__answer + "\n" \
+                + self.answer + "\n" \
                 + self.__feedback \
                 + "}"
 
@@ -66,3 +70,10 @@ class Question:
         return  category \
                 + self.create_question_text() \
                 + "\n"
+
+    def __is_list_of_answers(self,answers_list):
+        """Internal function to check if a parameter is a list of Answer class"""
+        if not isinstance(answers_list,list): return False
+        for element in answers_list:
+            if not isinstance(element,Answer): return False
+        return True
