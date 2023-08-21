@@ -36,3 +36,7 @@ TRUE_FALSE_QUESTION_TITLE = 'Question *'
 TRUE_FALSE_ANSWER_TITLE = 'True (T) or False (F)? *'
 TRUE_FALSE_FEEDBACK_TITLE = 'Feedback'
 TRUE_FALSE_SUBCATEGORY_TITLE = 'Subcategory'
+
+EXCEPTION_NONE_ARGUMENT = "Argument cannot be None"
+EXCEPTION_LIST_ANSWERS_NEEDED = 'List of Answer class needs to be used'
+EXCEPTION_AT_LEAST_TWO_ANSWERS = 'At least two answers are required'
