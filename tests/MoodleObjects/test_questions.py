@@ -1,13 +1,15 @@
 """Tests to question class"""
 import pytest
 import misc.Constants as CS
-from MoodleObjects.Questions import Question, MultipleChoice, Numeric
+from MoodleObjects.Questions import Question, MultipleChoice, Numeric, OneAnswer, TrueFalse
 from MoodleObjects.Answers import Answer
 
 ANSWER1 = Answer('Answer text1','Feedback1',0,0)
 ANSWER2 = Answer('Answer text2','Feedback2',0,0)
 ANSWER3 = Answer('Answer text3','Feedback3',0,0)
-NUMERIC_ANSWER = Answer(17,'Feedback',0,0)
+NUMERIC_ANSWER = Answer(17,'Feedback',0,0.1)
+TRUE_ANSWER = Answer('True','Feedback')
+FALSE_ANSWER = Answer('False','Feedback')
 
 QUESTION_CATEGORY = 'Question category'
 QUESTION_CODE = 'Question code'
@@ -23,7 +25,12 @@ BASE_QUESTION_PRINTED_QUESTION = \
 MULTIPLE_CHOICE_QUESTION_CORRECT_ANSWER = \
     '=Answer text1#Feedback1\n~%0%Answer text2#Feedback2\n~%0%Answer text3#Feedback3'
 
-NUMERIC_QUESTION_CORRECT_ANSWER = '#17:0'
+NUMERIC_QUESTION_CORRECT_ANSWER = '#17:0.1'
+
+ONE_ANSWER_QUESTION_CORRECT_ANSWER = '=%100%Answer text1\n=%100%Answer text2\n=%100%Answer text3'
+
+TRUE_FALSE_TRUE_CORRECT_ANSWER = 'T'
+TRUE_FALSE_FALSE_CORRECT_ANSWER = 'F'
 
 def test_base_question_create_question_ok():
     """Test object standard generation"""
@@ -190,3 +197,51 @@ def test_numeric_question_no_numeric_answer_get_exception():
             ANSWER_LIST,
             GENERAL_FEEDBACK)
     assert str(exc_info.value) == CS.EXCEPTION_ANSWER_MUST_BE_FLOAT
+
+def test_one_answer_question_create_question_ok():
+    """Test object standard generation"""
+    numeric_question = OneAnswer(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        ANSWER_LIST,
+        GENERAL_FEEDBACK)
+    assert numeric_question.category == QUESTION_CATEGORY
+    assert numeric_question.code == QUESTION_CODE
+    assert numeric_question.question == QUESTION_TEXT
+    assert numeric_question.answers_list == ANSWER_LIST
+    assert numeric_question.general_feedback == GENERAL_FEEDBACK
+    assert numeric_question.feedback == '####General feedback\n'
+    assert numeric_question.answer == ONE_ANSWER_QUESTION_CORRECT_ANSWER
+
+def test_true_false_question_create_true_question_ok():
+    """Test object standard generation"""
+    numeric_question = TrueFalse(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        [TRUE_ANSWER],
+        GENERAL_FEEDBACK)
+    assert numeric_question.category == QUESTION_CATEGORY
+    assert numeric_question.code == QUESTION_CODE
+    assert numeric_question.question == QUESTION_TEXT
+    assert numeric_question.answers_list == [TRUE_ANSWER]
+    assert numeric_question.general_feedback == GENERAL_FEEDBACK
+    assert numeric_question.feedback == '####General feedback\n'
+    assert numeric_question.answer == TRUE_FALSE_TRUE_CORRECT_ANSWER
+
+def test_true_false_question_create_false_question_ok():
+    """Test object standard generation"""
+    numeric_question = TrueFalse(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        [FALSE_ANSWER],
+        GENERAL_FEEDBACK)
+    assert numeric_question.category == QUESTION_CATEGORY
+    assert numeric_question.code == QUESTION_CODE
+    assert numeric_question.question == QUESTION_TEXT
+    assert numeric_question.answers_list == [FALSE_ANSWER]
+    assert numeric_question.general_feedback == GENERAL_FEEDBACK
+    assert numeric_question.feedback == '####General feedback\n'
+    assert numeric_question.answer == TRUE_FALSE_FALSE_CORRECT_ANSWER
