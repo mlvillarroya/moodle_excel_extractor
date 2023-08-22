@@ -1,10 +1,10 @@
 """Base class for questions array"""
 class BaseArray:
     """Class for base arrays"""
-    def __init__(self,questions_array = None, successfull_answers = 0, failed_answers = 0):
-        self.__questions_array = questions_array
-        self.__successfull_answers = successfull_answers
-        self.__failed_answers = failed_answers
+    def __init__(self):
+        self.__questions_array = None
+        self.__successfull_answers = 0
+        self.__failed_answers = 0
 
     @property
     def question_array(self):
@@ -23,6 +23,8 @@ class BaseArray:
 
     def extract_category(self, question, main_category):
         """Function: extract main category"""
+        if not isinstance(question,dict):
+            raise ValueError("Question needs to be in dictionary format")
         return ''
 
     def extract_answer_list(self, question):
