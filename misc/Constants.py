@@ -40,3 +40,4 @@ TRUE_FALSE_SUBCATEGORY_TITLE = 'Subcategory'
 EXCEPTION_NONE_ARGUMENT = "Argument cannot be None"
 EXCEPTION_LIST_ANSWERS_NEEDED = 'List of Answer class needs to be used'
 EXCEPTION_AT_LEAST_TWO_ANSWERS = 'At least two answers are required'
+EXCEPTION_ANSWER_MUST_BE_FLOAT = 'Error. Answer value must be float'

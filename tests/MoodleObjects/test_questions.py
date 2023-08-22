@@ -1,12 +1,13 @@
 """Tests to question class"""
 import pytest
 import misc.Constants as CS
-from MoodleObjects.Questions import Question, MultipleChoice
+from MoodleObjects.Questions import Question, MultipleChoice, Numeric
 from MoodleObjects.Answers import Answer
 
 ANSWER1 = Answer('Answer text1','Feedback1',0,0)
 ANSWER2 = Answer('Answer text2','Feedback2',0,0)
 ANSWER3 = Answer('Answer text3','Feedback3',0,0)
+NUMERIC_ANSWER = Answer(17,'Feedback',0,0)
 
 QUESTION_CATEGORY = 'Question category'
 QUESTION_CODE = 'Question code'
@@ -15,12 +16,14 @@ ANSWER_LIST = [ANSWER1,ANSWER2,ANSWER3]
 GENERAL_FEEDBACK = 'General feedback'
 
 QUESTION_BASE_CORRECT_ANSWER = ''
-
-MULTIPLE_CHOICE_QUESTION_TEXT = "::Question code::Question_text{\n\n####General feedback\n}"
-MULTIPLE_CHOICE_PRINTED_QUESTION = \
+BASE_QUESTION_TEXT = "::Question code::Question_text{\n\n####General feedback\n}"
+BASE_QUESTION_PRINTED_QUESTION = \
     "$CATEGORY: Question category\n\n::Question code::Question_text{\n\n####General feedback\n}\n"
+
 MULTIPLE_CHOICE_QUESTION_CORRECT_ANSWER = \
     '=Answer text1#Feedback1\n~%0%Answer text2#Feedback2\n~%0%Answer text3#Feedback3'
+
+NUMERIC_QUESTION_CORRECT_ANSWER = '#17:0'
 
 def test_base_question_create_question_ok():
     """Test object standard generation"""
@@ -122,7 +125,7 @@ def test_base_question_create_question_text_ok():
         QUESTION_TEXT,
         ANSWER_LIST,
         GENERAL_FEEDBACK)
-    assert base_question.create_question_text() == MULTIPLE_CHOICE_QUESTION_TEXT
+    assert base_question.create_question_text() == BASE_QUESTION_TEXT
 
 def test_base_question_print_question_ok():
     """Test function print question"""
@@ -132,7 +135,7 @@ def test_base_question_print_question_ok():
         QUESTION_TEXT,
         ANSWER_LIST,
         GENERAL_FEEDBACK)
-    assert base_question.print_question() == MULTIPLE_CHOICE_PRINTED_QUESTION
+    assert base_question.print_question() == BASE_QUESTION_PRINTED_QUESTION
 
 def test_multiple_choice_question_create_question_ok():
     """Test object standard generation"""
@@ -160,3 +163,30 @@ def test_multiple_choice_question_only_one_answer_get_exception():
             [ANSWER1],
             GENERAL_FEEDBACK)
     assert str(exc_info.value) == CS.EXCEPTION_AT_LEAST_TWO_ANSWERS
+
+def test_numeric_question_create_question_ok():
+    """Test object standard generation"""
+    numeric_question = Numeric(
+        QUESTION_CATEGORY,
+        QUESTION_CODE,
+        QUESTION_TEXT,
+        [NUMERIC_ANSWER],
+        GENERAL_FEEDBACK)
+    assert numeric_question.category == QUESTION_CATEGORY
+    assert numeric_question.code == QUESTION_CODE
+    assert numeric_question.question == QUESTION_TEXT
+    assert numeric_question.answers_list == [NUMERIC_ANSWER]
+    assert numeric_question.general_feedback == GENERAL_FEEDBACK
+    assert numeric_question.feedback == '####General feedback\n'
+    assert numeric_question.answer == NUMERIC_QUESTION_CORRECT_ANSWER
+
+def test_numeric_question_no_numeric_answer_get_exception():
+    """Test object standard generation with no numeric answer"""
+    with pytest.raises(ValueError) as exc_info:
+        Numeric(
+            QUESTION_CATEGORY,
+            QUESTION_CODE,
+            QUESTION_TEXT,
+            ANSWER_LIST,
+            GENERAL_FEEDBACK)
+    assert str(exc_info.value) == CS.EXCEPTION_ANSWER_MUST_BE_FLOAT
