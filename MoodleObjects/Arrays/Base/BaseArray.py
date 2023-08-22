@@ -1,6 +1,6 @@
-
 """Base class for questions array"""
 class BaseArray:
+    """Class for base arrays"""
     def __init__(self,questions_array = None, successfull_answers = 0, failed_answers = 0):
         self.__questions_array = questions_array
         self.__successfull_answers = successfull_answers
