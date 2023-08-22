@@ -1,20 +1,20 @@
-from MoodleQuestions.Base.Answer import Answer
-from MoodleQuestions.Base.TrueFalse import TrueFalse
+from MoodleObjects.Answers import Answer
+from MoodleObjects.Questions import TrueFalse
 import misc.Constants as CS
-from MoodleQuestions.Array.QuestionsArray import QuestionsArray
+from .Base.BaseArray import BaseArray
 
+class TrueFalseArray(BaseArray):
+    """Class for true-false questions array"""
+    def extract_category(self,question, main_category):
+        return main_category + '/' + \
+            question[CS.TRUE_FALSE_SUBCATEGORY_TITLE] if question[CS.TRUE_FALSE_SUBCATEGORY_TITLE] else main_category
 
-class TrueFalseArray(QuestionsArray):
-    def __init__(self, questionsArray=[], successfullAnswers=0, failedAnswers=0):
-        super().__init__(questionsArray, successfullAnswers, failedAnswers)
- 
-    def ExtractCategory(self,question, mainCategory):
-        return mainCategory + '/' + question[CS.TRUE_FALSE_SUBCATEGORY_TITLE] if question[CS.TRUE_FALSE_SUBCATEGORY_TITLE] else mainCategory
-    def ExtractAnswerList(self, question):
+    def extract_answer_list(self, question):
         return [Answer(question[CS.TRUE_FALSE_ANSWER_TITLE])]
-    def CreateQuestion(self,category,question,answer):
+
+    def create_question(self,category,question,answers):
         return TrueFalse(category,\
-                        'TF'+str(self.successfullAnswers),\
+                        'TF'+str(self.successfull_answers),\
                         question[CS.TRUE_FALSE_QUESTION_TITLE],\
-                        answer,\
+                        answers,\
                         question[CS.TRUE_FALSE_FEEDBACK_TITLE])
