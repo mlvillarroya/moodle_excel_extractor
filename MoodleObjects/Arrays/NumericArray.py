@@ -17,7 +17,7 @@ class NumericArray(BaseArray):
         return [Answer(question[CS.NUMERIC_CORRECT_VALUE_TITLE],
                        numeric_tolerance = question[CS.NUMERIC_TOLERANCE_TITLE])]
 
-    def create_question(self,category,question,answers):
+    def extract_question(self,category,question,answers):
         return Numeric(category,\
                         'N' + str(self.successfull_answers),\
                         question[CS.NUMERIC_QUESTION_TITLE],\
