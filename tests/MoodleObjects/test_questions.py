@@ -4,8 +4,8 @@ import misc.Constants as CS
 from MoodleObjects.Questions import Question, MultipleChoice, Numeric, OneAnswer, TrueFalse
 from MoodleObjects.Answers import Answer
 
-ANSWER1 = Answer('Answer text1','Feedback1',0,0)
-ANSWER2 = Answer('Answer text2','Feedback2',0,0)
+ANSWER1 = Answer('Answer text1','Feedback1',100,0)
+ANSWER2 = Answer('Answer text2','Feedback2',30,0)
 ANSWER3 = Answer('Answer text3','Feedback3',0,0)
 NUMERIC_ANSWER = Answer(17,'Feedback',0,0.1)
 TRUE_ANSWER = Answer('True','Feedback')
@@ -23,7 +23,7 @@ BASE_QUESTION_PRINTED_QUESTION = \
     "$CATEGORY: Question category\n\n::Question code::Question_text{\n\n####General feedback\n}\n"
 
 MULTIPLE_CHOICE_QUESTION_CORRECT_ANSWER = \
-    '=Answer text1#Feedback1\n~%0%Answer text2#Feedback2\n~%0%Answer text3#Feedback3'
+    '=Answer text1#Feedback1\n~%30%Answer text2#Feedback2\n~%0%Answer text3#Feedback3'
 
 NUMERIC_QUESTION_CORRECT_ANSWER = '#17:0.1'
 
