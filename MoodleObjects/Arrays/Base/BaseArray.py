@@ -1,10 +1,20 @@
 """Base class for questions array"""
+import misc.Constants as CS
 class BaseArray:
     """Class for base arrays"""
-    def __init__(self):
-        self.__questions_array = None
+    def __init__(self, dictionary_array, main_category = 'Category'):
+        if  not self.__is_list_of_dict(dictionary_array):
+            raise ValueError(CS.EXCEPTION_LIST_DICT_NEEDED)
+        self.__questions_array = []
         self.__successfull_answers = 0
         self.__failed_answers = 0
+        for question in dictionary_array:
+            try:
+                self.__questions_array.append(self.create_question(question,main_category))
+            except Exception:
+                self.__failed_answers += 1
+            else:
+                self.__successfull_answers += 1
 
     @property
     def question_array(self):
@@ -21,29 +31,29 @@ class BaseArray:
         """Property: questions array"""
         return self.__failed_answers
 
+    def create_question(self, question, main_category= 'Category'):
+        """Function to create the questions"""
+        category = self.extract_category(question, main_category)
+        answer = self.extract_answer_list(question)
+        return self.extract_question(category,question,answer)
+
     def extract_category(self, question, main_category):
-        """Function: extract main category"""
-        if not isinstance(question,dict):
-            raise ValueError("Question needs to be in dictionary format")
+        """MUST BE OVERRIDEN Function: extract main category"""
         return ''
 
     def extract_answer_list(self, question):
-        """Function: extract answer list"""
+        """MUST BE OVERRIDEN Function: extract answer list"""
         return ''
 
-    def create_question(self,category, question, answers):
-        """Function: create question"""
+    def extract_question(self,category, question, answers):
+        """MUST BE OVERRIDEN Function: create question"""
         return ''
 
-    def create_questions_array_from_dictionary_array(self, dictionary_array, main_category = ''):
-        """Function: create questions from dictionary"""
-        for question in dictionary_array:
-            try:
-                category = self.extract_category(question, main_category)
-                answer = self.extract_answer_list(question)
-                question = self.create_question(category,question,answer)
-                self.__questions_array.append(question)
-            except Exception:
-                self.__failed_answers += 1
-            else:
-                self.__successfull_answers += 1
+    def __is_list_of_dict(self,dict_array):
+        """Internal function to check if a parameter is a list of Answer class"""
+        if not isinstance(dict_array,list):
+            return False
+        for element in dict_array:
+            if not isinstance(element,dict):
+                return False
+        return True
