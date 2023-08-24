@@ -10,7 +10,7 @@ class BaseArray:
         self.__failed_answers = 0
         for question in dictionary_array:
             try:
-                self.__questions_array.append(self.create_question(question,main_category))
+                self.__questions_array.append(self.__create_question(question,main_category))
             except Exception:
                 self.__failed_answers += 1
             else:
@@ -31,21 +31,21 @@ class BaseArray:
         """Property: questions array"""
         return self.__failed_answers
 
-    def create_question(self, question, main_category= 'Category'):
+    def __create_question(self, question, main_category= 'Category'):
         """Function to create the questions"""
-        category = self.extract_category(question, main_category)
-        answer = self.extract_answer_list(question)
-        return self.extract_question(category,question,answer)
+        category = self._extract_category(question, main_category)
+        answer = self._extract_answer_list(question)
+        return self._extract_question(category,question,answer)
 
-    def extract_category(self, question, main_category):
+    def _extract_category(self, question, main_category):
         """MUST BE OVERRIDEN Function: extract main category"""
         return ''
 
-    def extract_answer_list(self, question):
+    def _extract_answer_list(self, question):
         """MUST BE OVERRIDEN Function: extract answer list"""
         return ''
 
-    def extract_question(self,category, question, answers):
+    def _extract_question(self,category, question, answers):
         """MUST BE OVERRIDEN Function: create question"""
         return ''
 

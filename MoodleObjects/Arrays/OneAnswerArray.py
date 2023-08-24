@@ -6,12 +6,12 @@ from .Base.BaseArray import BaseArray
 class OneAnswerArray(BaseArray):
     """Class for one answer questions array"""
 
-    def extract_category(self,question, main_category):
+    def _extract_category(self,question, main_category):
         return main_category + '/' + \
             question[CS.ONE_ANSWER_SUBCATEGORY_TITLE] if question[CS.ONE_ANSWER_SUBCATEGORY_TITLE] \
             else main_category
 
-    def extract_answer_list(self, question):
+    def _extract_answer_list(self, question):
         answers = []
         for i, answer in enumerate([question[CS.ONE_ANSWER_CORRECT_ANSWER_TITLE],\
                                     question[CS.ONE_ANSWER_ALTERNATE_CORRECT_ANSWER_1_TITLE],\
@@ -26,7 +26,7 @@ class OneAnswerArray(BaseArray):
             answers.append(created_answer)
         return answers
 
-    def create_question(self,category,question,answers):
+    def _extract_question(self,category,question,answers):
         return OneAnswer(category,\
                             'OA'+str(self.successfull_answers),\
                             question[CS.ONE_ANSWER_QUESTION_TITLE],\

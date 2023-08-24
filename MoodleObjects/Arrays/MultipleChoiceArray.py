@@ -6,12 +6,12 @@ from .Base.BaseArray import BaseArray
 class MultipleChoiceArray(BaseArray):
     """Class for multiplechoice questions array"""
 
-    def extract_category(self, question, main_category):
+    def _extract_category(self, question, main_category):
         """Function to extract category"""
         return main_category + '/' + \
             question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] if question[CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE] else main_category
 
-    def extract_answer_list(self, question: dict):
+    def _extract_answer_list(self, question: dict):
         """Function to extract answer list"""
         answers = []
         if not CS.MULTIPLE_CHOICE_BAD_ANSWER_POINTS_TITLE in question.keys():
@@ -31,7 +31,7 @@ class MultipleChoiceArray(BaseArray):
             answers.append(created_answer)
         return answers
 
-    def extract_question(self, category, question, answers) -> MultipleChoice:
+    def _extract_question(self, category, question, answers) -> MultipleChoice:
         return MultipleChoice(category,\
                             'MC'+ str(self.successfull_answers),\
                             question[CS.MULTIPLE_CHOICE_QUESTION_TITLE],\
