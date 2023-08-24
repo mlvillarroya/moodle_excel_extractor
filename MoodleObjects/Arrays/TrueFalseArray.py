@@ -12,7 +12,7 @@ class TrueFalseArray(BaseArray):
     def _extract_answer_list(self, question):
         return [Answer(question[CS.TRUE_FALSE_ANSWER_TITLE])]
 
-    def __create_question(self,category,question,answers):
+    def _extract_question(self,category,question,answers):
         return TrueFalse(category,\
                         'TF'+str(self.successfull_answers),\
                         question[CS.TRUE_FALSE_QUESTION_TITLE],\
