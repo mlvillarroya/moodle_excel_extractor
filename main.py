@@ -33,7 +33,7 @@ printedQuestion = numeric.printQuestion()
 print(printedQuestion)
  """
 
-from excel.ExcelCreator import ExcelCreator
+from excel.ExcelCreator.ExcelCreator import ExcelCreator
 from excel.ExcelExtractor import ExcelExtractor
 from GUI.Frames.CreateExcelFrame import CreateExcelFrame
 from GUI.Frames.CreateInstructionsFrame import CreateInstructionsFrame

@@ -1,4 +1,3 @@
-from tkinter import W
 from openpyxl.styles.fills import PatternFill
 from openpyxl.styles import Font
 from openpyxl.styles import Alignment
