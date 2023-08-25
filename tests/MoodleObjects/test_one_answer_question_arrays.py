@@ -33,6 +33,11 @@ def test_one_answer_question_array_creation_ok():
     assert questions_generated.question_array[0].question == 'Question'
     assert questions_generated.question_array[0].feedback == '####Feedback\n'
     assert questions_generated.question_array[1].print_question() == '$CATEGORY: main_category/Subcategory\n\n::OA1::Question{\n=%100%Correct answer\n=%100%Alternate1\n=%100%Alternate2\n=%100%Alternate3\n=%100%Alternate4\n####Feedback\n}\n'
+    assert questions_generated.print_all_questions() == \
+                questions_generated.question_array[0].print_question() +\
+                "\n" +\
+                questions_generated.question_array[1].print_question() +\
+                "\n"
 
 def test_one_answer_questions_question_with_no_title_not_created():
     """Test errors when a question has no title"""

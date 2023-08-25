@@ -57,3 +57,10 @@ class BaseArray:
             if not isinstance(element,dict):
                 return False
         return True
+
+    def print_all_questions(self):
+        """Function that prints all the questions in array"""
+        questions_printed = ''
+        for question in self.__questions_array:
+            questions_printed += question.print_question() + '\n'
+        return  questions_printed

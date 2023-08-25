@@ -27,6 +27,11 @@ def test_true_false_question_array_creation_ok():
     assert questions_generated.question_array[0].feedback == '####Feedback\n'
     assert questions_generated.question_array[0].print_question() == '$CATEGORY: main_category/Subcategory\n\n::TF0::Question{\nT\n####Feedback\n}\n'
     assert questions_generated.question_array[1].print_question() == '$CATEGORY: main_category/Subcategory\n\n::TF1::Question{\nF\n####Feedback\n}\n'
+    assert questions_generated.print_all_questions() == \
+                questions_generated.question_array[0].print_question() +\
+                "\n" +\
+                questions_generated.question_array[1].print_question() +\
+                "\n"
 
 def test_true_false_questions_question_with_no_title_not_created():
     """Test errors when a question has no title"""
