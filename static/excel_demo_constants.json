@@ -1,0 +1,18 @@
+{
+    "settings_sheet": 
+    {
+        "name" : "Settings",
+        "cell_coordinates":
+        {
+            "subject_name": "A1",
+            "chapter_name": "B1",
+            "mandatory_field_label": "E1"
+        },
+        "cell_labels": 
+        {
+            "subject_name": "Subject name",
+            "chapter_name": "Chapter name",
+            "mandatory_field_label": "* Mandatory Fields"
+        }        
+    }
+}
