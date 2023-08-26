@@ -9,6 +9,7 @@ from . import ExcelCellStyling
 
 with open("static/excel_creation_constants.json", "r", encoding="utf8") as file:
     constants = json.load(file)
+styling = ExcelCellStyling()
 
 class ExcelMode(Enum):
     """Enum: Excel creation or extraction"""
@@ -63,20 +64,11 @@ class ExcelCreator:
         first_sheet.title = settings_sheet_name
         for coordinates, name in settings_sheet_cells_data.values():
             first_sheet[coordinates] = name
-        for row in first_sheet['A1':'B1']:
-            for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,'center','center')
-                ExcelCellStyling.ChangeCellBackgroundAndTextColors(cell,'E7AA73','653159')
-                ExcelCellStyling.adjustSheetColumnSize(first_sheet,cell.column_letter,18)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
-        ExcelCellStyling.adjustSheetRowSize(first_sheet,1,38)
+        styling.first_row_adequation(first_sheet,'B')
         if demo_data:
-            first_sheet['A2'] = "SMX_M03"
-            first_sheet['B2'] = "Spreadsheet"
-        for row in first_sheet['A2':'B2']:
-            for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,wrap_text=True)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
+            settings_sheet_demo_data = settings_constants["demo_data"]
+            for coordinates, name in settings_sheet_demo_data.values():
+                first_sheet[coordinates] = name
 
     def __create_multiple_choice_sheet(self, demo_data = False):
         """Function to create multiple choice sheets"""
@@ -93,11 +85,11 @@ class ExcelCreator:
         multiple_choice_sheet['I1'] = CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE
         for row in multiple_choice_sheet['A1':'I1']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,'center','center')
-                ExcelCellStyling.ChangeCellBackgroundAndTextColors(cell,'E7AA73','653159')
-                ExcelCellStyling.adjustSheetColumnSize(multiple_choice_sheet,cell.column_letter,18)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
-        ExcelCellStyling.adjustSheetRowSize(multiple_choice_sheet,1,38)
+                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
+                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
+                ExcelCellStyling.__adjust_sheet_column_size(multiple_choice_sheet,cell.column_letter,18)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
+        ExcelCellStyling.__adjust_sheet_row_size(multiple_choice_sheet,1,38)
         if demo_data:
             multiple_choice_sheet['A2'] = "Meaning of CPU?"
             multiple_choice_sheet['B2'] = "Control process unit"
@@ -110,8 +102,8 @@ class ExcelCreator:
             multiple_choice_sheet['I2'] = "Processing"
         for row in multiple_choice_sheet['A2':'I20']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,wrap_text=True)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
+                ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
 
     def __create_one_answer_sheet(self, demo_data = False):
         one_answer_sheet = self.__wb.create_sheet(CS.ONE_ANSWER_SHEET_NAME)
@@ -125,11 +117,11 @@ class ExcelCreator:
         one_answer_sheet['H1'] = CS.ONE_ANSWER_SUBCATEGORY_TITLE
         for row in one_answer_sheet['A1':'H1']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,'center','center')
-                ExcelCellStyling.ChangeCellBackgroundAndTextColors(cell,'E7AA73','653159')
-                ExcelCellStyling.adjustSheetColumnSize(one_answer_sheet,cell.column_letter,18)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
-        ExcelCellStyling.adjustSheetRowSize(one_answer_sheet,1,38)
+                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
+                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
+                ExcelCellStyling.__adjust_sheet_column_size(one_answer_sheet,cell.column_letter,18)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
+        ExcelCellStyling.__adjust_sheet_row_size(one_answer_sheet,1,38)
         if demo_data:
             one_answer_sheet['A2'] = "Color of one original Power Rangers"
             one_answer_sheet['B2'] = "Red"
@@ -141,8 +133,8 @@ class ExcelCreator:
             one_answer_sheet['H2'] = "Television"
         for row in one_answer_sheet['A2':'H20']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,wrap_text=True)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
+                ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
 
     def __create_true_false_sheet(self, demo_data = False):
         true_false_sheet = self.__wb.create_sheet(CS.TRUE_FALSE_SHEET_NAME)
@@ -152,11 +144,11 @@ class ExcelCreator:
         true_false_sheet['D1'] = CS.TRUE_FALSE_SUBCATEGORY_TITLE
         for row in true_false_sheet['A1':'D1']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,'center','center')
-                ExcelCellStyling.ChangeCellBackgroundAndTextColors(cell,'E7AA73','653159')
-                ExcelCellStyling.adjustSheetColumnSize(true_false_sheet,cell.column_letter,20)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
-        ExcelCellStyling.adjustSheetRowSize(true_false_sheet,1,38)
+                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
+                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
+                ExcelCellStyling.__adjust_sheet_column_size(true_false_sheet,cell.column_letter,20)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
+        ExcelCellStyling.__adjust_sheet_row_size(true_false_sheet,1,38)
         if demo_data:
             true_false_sheet['A2'] = "RAM memory is volatile"
             true_false_sheet['B2'] = "T"
@@ -164,8 +156,8 @@ class ExcelCreator:
             true_false_sheet['D2'] = "Processing"
         for row in true_false_sheet['A2':'D20']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell, wrap_text= True)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
+                ExcelCellStyling.__change_cell_alignment(cell, wrap_text= True)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
 
     def __create_numeric_sheet(self, demo_data = False):
         numeric_sheet = self.__wb.create_sheet(CS.NUMERIC_SHEET_NAME)
@@ -176,11 +168,11 @@ class ExcelCreator:
         numeric_sheet['E1'] = CS.NUMERIC_SUBCATEGORY_TITLE
         for row in numeric_sheet['A1':'E1']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,'center','center')
-                ExcelCellStyling.ChangeCellBackgroundAndTextColors(cell,'E7AA73','653159')
-                ExcelCellStyling.adjustSheetColumnSize(numeric_sheet,cell.column_letter,18)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
-        ExcelCellStyling.adjustSheetRowSize(numeric_sheet,1,38)
+                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
+                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
+                ExcelCellStyling.__adjust_sheet_column_size(numeric_sheet,cell.column_letter,18)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
+        ExcelCellStyling.__adjust_sheet_row_size(numeric_sheet,1,38)
         if demo_data:
             numeric_sheet['A2'] = "Value of Pi?"
             numeric_sheet['B2'] = "3.14"
@@ -189,5 +181,5 @@ class ExcelCreator:
             numeric_sheet['E2'] = "Math"
         for row in numeric_sheet['A2':'E20']:
             for cell in row:
-                ExcelCellStyling.ChangeCellAlignment(cell,wrap_text=True)
-                ExcelCellStyling.ApplyFullBorderToCell(cell)
+                ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
+                ExcelCellStyling.__apply_full_border_to_cell(cell)
