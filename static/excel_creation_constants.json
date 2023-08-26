@@ -7,6 +7,11 @@
             "subject_name": ["A1", "Subject name"],
             "chapter_name": ["B1", "Chapter name"],
             "mandatory_field_label": ["E1", "* Mandatory Fields"]
+        },
+        "demo_data":
+        {
+            "subject_name": ["A2", "SMX_M03"],
+            "chapter_name": ["B2", "Word processor"]
         }
     }
 }
