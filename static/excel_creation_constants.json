@@ -1,0 +1,12 @@
+{
+    "settings_sheet": 
+    {
+        "name" : "Settings",
+        "cells":
+        {
+            "subject_name": ["A1", "Subject name"],
+            "chapter_name": ["B1", "Chapter name"],
+            "mandatory_field_label": ["E1", "* Mandatory Fields"]
+        }
+    }
+}

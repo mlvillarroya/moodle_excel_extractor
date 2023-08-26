@@ -7,7 +7,7 @@ from openpyxl.comments import Comment
 import misc.Constants as CS
 from . import ExcelCellStyling
 
-with open("static/excel_demo_constants.json", "r", encoding="utf8") as file:
+with open("static/excel_creation_constants.json", "r", encoding="utf8") as file:
     constants = json.load(file)
 
 class ExcelMode(Enum):
@@ -58,16 +58,11 @@ class ExcelCreator:
     def __configure_settings_sheet(self, demo_data = False):
         settings_constants = constants["settings_sheet"]
         settings_sheet_name = settings_constants["name"]
-        settings_sheet_coordinates = settings_constants["cell_coordinates"]
-        settings_sheet_labels = settings_constants["cell_labels"]
+        settings_sheet_cells_data = settings_constants["cells"]
         first_sheet = self.__wb.active
         first_sheet.title = settings_sheet_name
-        first_sheet[settings_sheet_coordinates["subject_name"]] =\
-            settings_sheet_labels["subject_name"]
-        first_sheet[settings_sheet_coordinates["chapter_name"]] =\
-            settings_sheet_labels["chapter_name"]
-        first_sheet[settings_sheet_coordinates["mandatory_field_label"]] =\
-            settings_sheet_labels["mandatory_field_label"]
+        for coordinates, name in settings_sheet_cells_data.values():
+            first_sheet[coordinates] = name
         for row in first_sheet['A1':'B1']:
             for cell in row:
                 ExcelCellStyling.ChangeCellAlignment(cell,'center','center')
