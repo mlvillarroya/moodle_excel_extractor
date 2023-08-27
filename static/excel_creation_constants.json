@@ -13,5 +13,33 @@
             "subject_name": ["A2", "SMX_M03"],
             "chapter_name": ["B2", "Word processor"]
         }
+    },
+    "multiple_choice_sheet": 
+    {
+        "name" : "Multiple choice",
+        "cells":
+        {
+            "question_name": ["A1", "Question *"],
+            "correct_answer": ["B1", "Correct answer *"],
+            "incorrect_answer_1": ["C1", "Incorrect answer 1 *"],
+            "incorrect_answer_2": ["D1", "Incorrect answer 2"],
+            "incorrect_answer_3": ["E1", "Incorrect answer 3"],
+            "incorrect_answer_4": ["F1", "Incorrect answer 4"],
+            "bad_answer_points": ["G1", "Bad answer points"],
+            "feedback": ["H1", "Feedback"],
+            "subcategory": ["I1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "Meaning of CPU?"],
+            "correct_answer": ["B2", "Control process unit"],
+            "incorrect_answer_1": ["C2", "Carpenter public uniform"],
+            "incorrect_answer_2": ["D2", "Car pen use"],
+            "incorrect_answer_3": ["E2", "Coconut private use"],
+            "incorrect_answer_4": ["F2", "Cardigan pickle uniform"],
+            "bad_answer_points": ["G2", "-30"],
+            "feedback": ["H2", "That's an important question"],
+            "subcategory": ["I2", "Processing"]
+        }
     }
 }

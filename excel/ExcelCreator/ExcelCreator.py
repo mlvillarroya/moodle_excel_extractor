@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+from os import remove as OSRemove
 from os import path as OSPath
 from enum import Enum
 from openpyxl import Workbook
@@ -39,7 +40,6 @@ class ExcelCreator:
                 self.__create_true_false_sheet(demo_data)
             if create_numeric:
                 self.__create_numeric_sheet(demo_data)
-            self.__wb.save(OSPath.join(self.__path,self.__filename))
 
     @property
     def path(self):
@@ -56,54 +56,30 @@ class ExcelCreator:
         """Property: path"""
         return self.__wb
 
-    def __configure_settings_sheet(self, demo_data = False):
+    def save_excel_file(self):
+        """Function to save the workbook into a file"""
+        self.__wb.save(OSPath.join(self.__path,self.__filename))
+
+    def remove_excel_file(self):
+        """Function to save the workbook into a file"""
+        OSRemove(OSPath.join(self.__path,self.__filename))
+
+    def __configure_settings_sheet(self, demo_data= False):
         settings_constants = constants["settings_sheet"]
-        settings_sheet_name = settings_constants["name"]
-        settings_sheet_cells_data = settings_constants["cells"]
         first_sheet = self.__wb.active
-        first_sheet.title = settings_sheet_name
-        for coordinates, name in settings_sheet_cells_data.values():
-            first_sheet[coordinates] = name
+        self.__insert_cell_text_into_sheet(settings_constants, first_sheet)
         styling.first_row_adequation(first_sheet,'B')
         if demo_data:
-            settings_sheet_demo_data = settings_constants["demo_data"]
-            for coordinates, name in settings_sheet_demo_data.values():
-                first_sheet[coordinates] = name
+            self.__insert_demo_data_into_sheet(settings_constants, first_sheet)
 
-    def __create_multiple_choice_sheet(self, demo_data = False):
+    def __create_multiple_choice_sheet(self, demo_data= False):
         """Function to create multiple choice sheets"""
-        multiple_choice_sheet = self.__wb.create_sheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
-        multiple_choice_sheet['A1'] = CS.MULTIPLE_CHOICE_QUESTION_TITLE
-        multiple_choice_sheet['B1'] = CS.MULTIPLE_CHOICE_CORRECT_ANSWER_TITLE
-        multiple_choice_sheet['C1'] = CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_1_TITLE
-        multiple_choice_sheet['D1'] = CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_2_TITLE
-        multiple_choice_sheet['E1'] = CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_3_TITLE
-        multiple_choice_sheet['F1'] = CS.MULTIPLE_CHOICE_INCORRECT_ANSWER_4_TITLE
-        multiple_choice_sheet['G1'] = CS.MULTIPLE_CHOICE_BAD_ANSWER_POINTS_TITLE
-        multiple_choice_sheet['G1'].comment = Comment(CS.MULTIPLE_CHOICE_BAD_ANSWER_POINTS_COMMENT,"admin",250,200)
-        multiple_choice_sheet['H1'] = CS.MULTIPLE_CHOICE_FEEDBACK_TITLE
-        multiple_choice_sheet['I1'] = CS.MULTIPLE_CHOICE_SUBCATEGORY_TITLE
-        for row in multiple_choice_sheet['A1':'I1']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
-                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
-                ExcelCellStyling.__adjust_sheet_column_size(multiple_choice_sheet,cell.column_letter,18)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
-        ExcelCellStyling.__adjust_sheet_row_size(multiple_choice_sheet,1,38)
+        multiple_choice_constants = constants["multiple_choice_sheet"]
+        multiple_choice_sheet = self.__wb.create_sheet()
+        self.__insert_cell_text_into_sheet(multiple_choice_constants, multiple_choice_sheet)
+        styling.first_row_adequation(multiple_choice_sheet,'I')
         if demo_data:
-            multiple_choice_sheet['A2'] = "Meaning of CPU?"
-            multiple_choice_sheet['B2'] = "Control process unit"
-            multiple_choice_sheet['C2'] = "Carpenter public uniform"
-            multiple_choice_sheet['D2'] = "Car pen use"
-            multiple_choice_sheet['E2'] = "Coconut private use"
-            multiple_choice_sheet['F2'] = "Cardigan pickle uniform"
-            multiple_choice_sheet['G2'] = "-30"
-            multiple_choice_sheet['H2'] = "A central processing unit (CPU) is the electronic circuitry that executes instructions comprising a computer program."
-            multiple_choice_sheet['I2'] = "Processing"
-        for row in multiple_choice_sheet['A2':'I20']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
+            self.__insert_demo_data_into_sheet(multiple_choice_constants, multiple_choice_sheet)
 
     def __create_one_answer_sheet(self, demo_data = False):
         one_answer_sheet = self.__wb.create_sheet(CS.ONE_ANSWER_SHEET_NAME)
@@ -183,3 +159,15 @@ class ExcelCreator:
             for cell in row:
                 ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
                 ExcelCellStyling.__apply_full_border_to_cell(cell)
+
+    def __insert_cell_text_into_sheet(self, constants_dict, sheet):
+        sheet_name = constants_dict["name"]
+        sheet.title = sheet_name
+        sheet_cells_data = constants_dict["cells"]
+        for coordinates, name in sheet_cells_data.values():
+            sheet[coordinates] = name
+
+    def __insert_demo_data_into_sheet(self, constants_dict, sheet):
+        demo_data = constants_dict["demo_data"]
+        for coordinates, name in demo_data.values():
+            sheet[coordinates] = name
