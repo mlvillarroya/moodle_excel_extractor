@@ -82,35 +82,12 @@ class ExcelCreator:
             self.__insert_demo_data_into_sheet(multiple_choice_constants, multiple_choice_sheet)
 
     def __create_one_answer_sheet(self, demo_data = False):
-        one_answer_sheet = self.__wb.create_sheet(CS.ONE_ANSWER_SHEET_NAME)
-        one_answer_sheet['A1'] = CS.ONE_ANSWER_QUESTION_TITLE
-        one_answer_sheet['B1'] = CS.ONE_ANSWER_CORRECT_ANSWER_TITLE
-        one_answer_sheet['C1'] = CS.ONE_ANSWER_ALTERNATE_CORRECT_ANSWER_1_TITLE
-        one_answer_sheet['D1'] = CS.ONE_ANSWER_ALTERNATE_CORRECT_ANSWER_2_TITLE
-        one_answer_sheet['E1'] = CS.ONE_ANSWER_ALTERNATE_CORRECT_ANSWER_3_TITLE
-        one_answer_sheet['F1'] = CS.ONE_ANSWER_ALTERNATE_CORRECT_ANSWER_4_TITLE
-        one_answer_sheet['G1'] = CS.ONE_ANSWER_FEEDBACK_TITLE
-        one_answer_sheet['H1'] = CS.ONE_ANSWER_SUBCATEGORY_TITLE
-        for row in one_answer_sheet['A1':'H1']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
-                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
-                ExcelCellStyling.__adjust_sheet_column_size(one_answer_sheet,cell.column_letter,18)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
-        ExcelCellStyling.__adjust_sheet_row_size(one_answer_sheet,1,38)
+        one_answer_constants = constants["one_answer_sheet"]
+        one_answer_sheet = self.__wb.create_sheet()
+        self.__insert_cell_text_into_sheet(one_answer_constants, one_answer_sheet)
+        styling.first_row_adequation(one_answer_sheet,'H')
         if demo_data:
-            one_answer_sheet['A2'] = "Color of one original Power Rangers"
-            one_answer_sheet['B2'] = "Red"
-            one_answer_sheet['C2'] = "Blue"
-            one_answer_sheet['D2'] = "Yellow"
-            one_answer_sheet['E2'] = "Pink"
-            one_answer_sheet['F2'] = "Black"
-            one_answer_sheet['G2'] = "The color of the original Rangers are red, blue, yellow, pink and black"
-            one_answer_sheet['H2'] = "Television"
-        for row in one_answer_sheet['A2':'H20']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
+            self.__insert_demo_data_into_sheet(one_answer_constants, one_answer_sheet)
 
     def __create_true_false_sheet(self, demo_data = False):
         true_false_sheet = self.__wb.create_sheet(CS.TRUE_FALSE_SHEET_NAME)
