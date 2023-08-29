@@ -68,7 +68,7 @@ class ExcelCreator:
         settings_constants = constants["settings_sheet"]
         first_sheet = self.__wb.active
         self.__insert_cell_text_into_sheet(settings_constants, first_sheet)
-        styling.first_row_adequation(first_sheet,'B')
+        styling.first_row_adequation(first_sheet)
         if demo_data:
             self.__insert_demo_data_into_sheet(settings_constants, first_sheet)
 
@@ -77,7 +77,7 @@ class ExcelCreator:
         multiple_choice_constants = constants["multiple_choice_sheet"]
         multiple_choice_sheet = self.__wb.create_sheet()
         self.__insert_cell_text_into_sheet(multiple_choice_constants, multiple_choice_sheet)
-        styling.first_row_adequation(multiple_choice_sheet,'I')
+        styling.first_row_adequation(multiple_choice_sheet)
         if demo_data:
             self.__insert_demo_data_into_sheet(multiple_choice_constants, multiple_choice_sheet)
 
@@ -85,7 +85,7 @@ class ExcelCreator:
         one_answer_constants = constants["one_answer_sheet"]
         one_answer_sheet = self.__wb.create_sheet()
         self.__insert_cell_text_into_sheet(one_answer_constants, one_answer_sheet)
-        styling.first_row_adequation(one_answer_sheet,'H')
+        styling.first_row_adequation(one_answer_sheet)
         if demo_data:
             self.__insert_demo_data_into_sheet(one_answer_constants, one_answer_sheet)
 
@@ -93,7 +93,7 @@ class ExcelCreator:
         true_false_constants = constants["true_false_sheet"]
         true_false_sheet = self.__wb.create_sheet()
         self.__insert_cell_text_into_sheet(true_false_constants, true_false_sheet)
-        styling.first_row_adequation(true_false_sheet,'D')
+        styling.first_row_adequation(true_false_sheet)
         if demo_data:
             self.__insert_demo_data_into_sheet(true_false_constants, true_false_sheet)
 
@@ -101,7 +101,7 @@ class ExcelCreator:
         numeric_constants = constants["numeric_sheet"]
         numeric_sheet = self.__wb.create_sheet()
         self.__insert_cell_text_into_sheet(numeric_constants, numeric_sheet)
-        styling.first_row_adequation(numeric_sheet,'E')
+        styling.first_row_adequation(numeric_sheet)
         if demo_data:
             self.__insert_demo_data_into_sheet(numeric_constants, numeric_sheet)
 

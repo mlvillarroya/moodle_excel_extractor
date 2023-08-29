@@ -31,8 +31,9 @@ class ExcelCellStyling:
     def __adjust_sheet_column_size(self, sheet, column, width):
         sheet.column_dimensions[column].width = width
 
-    def first_row_adequation(self, sheet: Worksheet, last_column_letter):
+    def first_row_adequation(self, sheet: Worksheet):
         """Editing first row with border and background"""
+        last_column_letter = sheet.dimensions[3]
         for row in sheet['A1':last_column_letter+'1']:
             for cell in row:
                 self.__change_cell_alignment(cell,'center','center')
