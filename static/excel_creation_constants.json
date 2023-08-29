@@ -67,6 +67,25 @@
             "feedback": ["G2", "That's an important question"],
             "subcategory": ["H2", "Society"]
         }
+    },
+    "true_false_sheet": 
+    {
+        "name" : "True_False",
+        "cells":
+        {
+            "question_name": ["A1", "Question *"],
+            "correct_answer": ["B1", "True (T) or False (F)? *"],
+            "feedback": ["C1", "Feedback"],
+            "subcategory": ["D1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "RAM is volatile"],
+            "correct_answer": ["B2", "T"],
+            "feedback": ["C2", "RAM is volatile memory used to hold instructions and data of currently running programs. It loses integrity after loss of power."],
+            "subcategory": ["D2", "Memory"]
+        }
     }
+
 
 }

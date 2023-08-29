@@ -90,27 +90,12 @@ class ExcelCreator:
             self.__insert_demo_data_into_sheet(one_answer_constants, one_answer_sheet)
 
     def __create_true_false_sheet(self, demo_data = False):
-        true_false_sheet = self.__wb.create_sheet(CS.TRUE_FALSE_SHEET_NAME)
-        true_false_sheet['A1'] = CS.TRUE_FALSE_QUESTION_TITLE
-        true_false_sheet['B1'] = CS.TRUE_FALSE_ANSWER_TITLE
-        true_false_sheet['C1'] = CS.TRUE_FALSE_FEEDBACK_TITLE
-        true_false_sheet['D1'] = CS.TRUE_FALSE_SUBCATEGORY_TITLE
-        for row in true_false_sheet['A1':'D1']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
-                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
-                ExcelCellStyling.__adjust_sheet_column_size(true_false_sheet,cell.column_letter,20)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
-        ExcelCellStyling.__adjust_sheet_row_size(true_false_sheet,1,38)
+        true_false_constants = constants["true_false_sheet"]
+        true_false_sheet = self.__wb.create_sheet()
+        self.__insert_cell_text_into_sheet(true_false_constants, true_false_sheet)
+        styling.first_row_adequation(true_false_sheet,'D')
         if demo_data:
-            true_false_sheet['A2'] = "RAM memory is volatile"
-            true_false_sheet['B2'] = "T"
-            true_false_sheet['C2'] = "RAM is volatile memory, which means that the information temporarily stored in the module is erased when you restart or shut down your computer."
-            true_false_sheet['D2'] = "Processing"
-        for row in true_false_sheet['A2':'D20']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell, wrap_text= True)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
+            self.__insert_demo_data_into_sheet(true_false_constants, true_false_sheet)
 
     def __create_numeric_sheet(self, demo_data = False):
         numeric_sheet = self.__wb.create_sheet(CS.NUMERIC_SHEET_NAME)

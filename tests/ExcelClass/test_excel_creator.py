@@ -66,7 +66,7 @@ def test_excel_creator_mc_sheet_demo_data_creates_ok():
     assert mc_sheet['I2'].value == "Processing"
 
 def test_excel_creator_oa_sheet_creates_ok():
-    "Testing excel and mc sheet creation"
+    "Testing excel and oa sheet creation"
     excel = ExcelCreator(create_one_answer= True)
     mc_sheet = excel.workbook.get_sheet_by_name("One answer")
     assert mc_sheet is not None
@@ -80,7 +80,7 @@ def test_excel_creator_oa_sheet_creates_ok():
     assert mc_sheet['H1'].value == "Subcategory"
 
 def test_excel_creator_oa_demo_data_creates_ok():
-    "Testing excel and mc sheet creation"
+    "Testing oa sheet demo data creation"
     excel = ExcelCreator(create_one_answer= True, demo_data= True)
     mc_sheet = excel.workbook.get_sheet_by_name("One answer")
     assert mc_sheet is not None
@@ -92,3 +92,23 @@ def test_excel_creator_oa_demo_data_creates_ok():
     assert mc_sheet['F2'].value == "fbI"
     assert mc_sheet['G2'].value == "That's an important question"
     assert mc_sheet['H2'].value == "Society"
+
+def test_excel_creator_tf_sheet_creates_ok():
+    "Testing excel and tf sheet creation"
+    excel = ExcelCreator(create_true_false= True)
+    tf_sheet = excel.workbook.get_sheet_by_name("True_False")
+    assert tf_sheet is not None
+    assert tf_sheet['A1'].value == "Question *"
+    assert tf_sheet['B1'].value == "True (T) or False (F)? *"
+    assert tf_sheet['C1'].value == "Feedback"
+    assert tf_sheet['D1'].value == "Subcategory"
+
+def test_excel_creator_tf_sheet_demo_data_creates_ok():
+    "Testing tf sheet demo data creation"
+    excel = ExcelCreator(create_true_false= True, demo_data= True)
+    tf_sheet = excel.workbook.get_sheet_by_name("True_False")
+    assert tf_sheet is not None
+    assert tf_sheet['A2'].value == "RAM is volatile"
+    assert tf_sheet['B2'].value == "T"
+    assert tf_sheet['C2'].value == "RAM is volatile memory used to hold instructions and data of currently running programs. It loses integrity after loss of power."
+    assert tf_sheet['D2'].value == "Memory"
