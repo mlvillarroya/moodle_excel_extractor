@@ -98,29 +98,12 @@ class ExcelCreator:
             self.__insert_demo_data_into_sheet(true_false_constants, true_false_sheet)
 
     def __create_numeric_sheet(self, demo_data = False):
-        numeric_sheet = self.__wb.create_sheet(CS.NUMERIC_SHEET_NAME)
-        numeric_sheet['A1'] = CS.NUMERIC_QUESTION_TITLE
-        numeric_sheet['B1'] = CS.NUMERIC_CORRECT_VALUE_TITLE
-        numeric_sheet['C1'] = CS.NUMERIC_TOLERANCE_TITLE
-        numeric_sheet['D1'] = CS.NUMERIC_FEEDBACK_TITLE
-        numeric_sheet['E1'] = CS.NUMERIC_SUBCATEGORY_TITLE
-        for row in numeric_sheet['A1':'E1']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,'center','center')
-                ExcelCellStyling.__change_cell_background_and_text_colors(cell,'E7AA73','653159')
-                ExcelCellStyling.__adjust_sheet_column_size(numeric_sheet,cell.column_letter,18)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
-        ExcelCellStyling.__adjust_sheet_row_size(numeric_sheet,1,38)
+        numeric_constants = constants["numeric_sheet"]
+        numeric_sheet = self.__wb.create_sheet()
+        self.__insert_cell_text_into_sheet(numeric_constants, numeric_sheet)
+        styling.first_row_adequation(numeric_sheet,'E')
         if demo_data:
-            numeric_sheet['A2'] = "Value of Pi?"
-            numeric_sheet['B2'] = "3.14"
-            numeric_sheet['C2'] = "0.01"
-            numeric_sheet['D2'] = "Value of Pi is 3.141592653589793238"
-            numeric_sheet['E2'] = "Math"
-        for row in numeric_sheet['A2':'E20']:
-            for cell in row:
-                ExcelCellStyling.__change_cell_alignment(cell,wrap_text=True)
-                ExcelCellStyling.__apply_full_border_to_cell(cell)
+            self.__insert_demo_data_into_sheet(numeric_constants, numeric_sheet)
 
     def __insert_cell_text_into_sheet(self, constants_dict, sheet):
         sheet_name = constants_dict["name"]

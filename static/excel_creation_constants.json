@@ -85,7 +85,26 @@
             "feedback": ["C2", "RAM is volatile memory used to hold instructions and data of currently running programs. It loses integrity after loss of power."],
             "subcategory": ["D2", "Memory"]
         }
+    },
+    "numeric_sheet": 
+    {
+        "name" : "Numeric",
+        "cells":
+        {
+            "question_name": ["A1", "Question *"],
+            "correct_answer": ["B1", "Correct numeric value *"],
+            "tolerance": ["C1", "Numeric tolerance *"],
+            "feedback": ["D1", "Feedback"],
+            "subcategory": ["E1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "Value of Pi?"],
+            "correct_answer": ["B2", "3.14"],
+            "tolerance": ["C2", "0.01"],
+            "feedback": ["D2", "Value of Pi is 3.141592653589793238"],
+            "subcategory": ["E2", "Math"]
+        }
     }
-
 
 }

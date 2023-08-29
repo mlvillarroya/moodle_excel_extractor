@@ -112,3 +112,25 @@ def test_excel_creator_tf_sheet_demo_data_creates_ok():
     assert tf_sheet['B2'].value == "T"
     assert tf_sheet['C2'].value == "RAM is volatile memory used to hold instructions and data of currently running programs. It loses integrity after loss of power."
     assert tf_sheet['D2'].value == "Memory"
+
+def test_excel_creator_numeric_sheet_creates_ok():
+    "Testing excel and numeric sheet creation"
+    excel = ExcelCreator(create_numeric= True)
+    numeric_sheet = excel.workbook.get_sheet_by_name("Numeric")
+    assert numeric_sheet is not None
+    assert numeric_sheet['A1'].value == "Question *"
+    assert numeric_sheet['B1'].value == "Correct numeric value *"
+    assert numeric_sheet['C1'].value == "Numeric tolerance *"
+    assert numeric_sheet['D1'].value == "Feedback"
+    assert numeric_sheet['E1'].value == "Subcategory"
+
+def test_excel_creator_numeric_sheet_demo_data_creates_ok():
+    "Testing numeric sheet demo data creation"
+    excel = ExcelCreator(create_numeric= True, demo_data= True)
+    numeric_sheet = excel.workbook.get_sheet_by_name("Numeric")
+    assert numeric_sheet is not None
+    assert numeric_sheet['A2'].value == "Value of Pi?"
+    assert numeric_sheet['B2'].value == "3.14"
+    assert numeric_sheet['C2'].value == "0.01"
+    assert numeric_sheet['D2'].value == "Value of Pi is 3.141592653589793238"
+    assert numeric_sheet['E2'].value == "Math"
