@@ -53,7 +53,6 @@ def test_excel_creator_mc_sheet_demo_data_creates_ok():
     """Testing mc demo data creation"""
     excel = ExcelCreator(create_multiple_choice= True, demo_data= True)
     mc_sheet = excel.workbook.get_sheet_by_name("Multiple choice")
-    excel.save_excel_file()
     assert mc_sheet is not None
     assert mc_sheet['A2'].value == "Meaning of CPU?"
     assert mc_sheet['B2'].value == "Control process unit"
