@@ -4,7 +4,6 @@ from os import remove as OSRemove
 from os import path as OSPath
 from enum import Enum
 from openpyxl import Workbook
-from openpyxl.comments import Comment
 import misc.Constants as CS
 from . import ExcelCellStyling
 
@@ -21,6 +20,7 @@ class ExcelCreator:
     """Class to create excel files with example"""
     def __init__(self,
                  path = '',
+                 filename = CS.FILENAME,
                  excel_mode: ExcelMode = ExcelMode.CREATE,
                  create_multiple_choice = False,
                  create_true_false = False,
@@ -29,7 +29,7 @@ class ExcelCreator:
                  demo_data = False):
         if excel_mode == ExcelMode.CREATE:
             self.__path = path if path != '' else Path().resolve().__str__()
-            self.__filename = CS.FILENAME
+            self.__filename = filename
             self.__wb = Workbook()
             self.__configure_settings_sheet(demo_data)
             if create_multiple_choice:
@@ -108,7 +108,7 @@ class ExcelCreator:
     def __insert_cell_text_into_sheet(self, constants_dict, sheet):
         sheet_name = constants_dict["name"]
         sheet.title = sheet_name
-        sheet_cells_data = constants_dict["cells"]
+        sheet_cells_data = constants_dict["cell_titles"]
         for coordinates, name in sheet_cells_data.values():
             sheet[coordinates] = name
 
