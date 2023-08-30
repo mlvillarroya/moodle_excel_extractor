@@ -1,9 +1,10 @@
 """Testing ExcelCreator class"""
 from pathlib import Path
 import os
+import pytest
 from excel import ExcelCreator
 
-#TODO: FALTA TESTAR EL PATH Y FILANAME
+#TODO: FALTA TESTAR EL PATH Y FILENAME
 
 def test_excel_creator_ok():
     """Testing the object creation"""
@@ -14,11 +15,19 @@ def test_excel_creator_ok():
 
 def test_excel_creator_file_creates_removes_ok():
     """Testing file creation"""
-    excel = ExcelCreator()
+    excel = ExcelCreator("tests","myfile.xlsx")
+    assert excel.path == "tests"
+    assert excel.filename == "myfile.xlsx"
     excel.save_excel_file()
     assert os.path.isfile(os.path.join(excel.path,excel.filename))
     excel.remove_excel_file()
     assert os.path.isfile(os.path.join(excel.path,excel.filename)) is False
+
+def test_excel_creator_invalid_path_raises_exception():
+    excel = ExcelCreator("invalid_path","filename.xlsx")
+    with pytest.raises(FileNotFoundError) as exc_info:
+        excel.save_excel_file()
+    assert str(exc_info.value) == "Path not exists. Please revise it"
 
 def test_excel_creator_settings_sheet_creates_ok():
     "Testing excel and settings sheet creation"

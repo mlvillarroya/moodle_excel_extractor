@@ -58,7 +58,10 @@ class ExcelCreator:
 
     def save_excel_file(self):
         """Function to save the workbook into a file"""
-        self.__wb.save(OSPath.join(self.__path,self.__filename))
+        try:
+            self.__wb.save(OSPath.join(self.__path,self.__filename))
+        except FileNotFoundError:
+            raise FileNotFoundError("Path not exists. Please revise it")
 
     def remove_excel_file(self):
         """Function to save the workbook into a file"""
