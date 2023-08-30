@@ -1,7 +1,9 @@
 """Testing ExcelCreator class"""
 from pathlib import Path
 import os
-from excel.ExcelCreator import ExcelCreator
+from excel import ExcelCreator
+
+# FALTA TESTAR EL PATH Y FILANAME
 
 def test_excel_creator_ok():
     """Testing the object creation"""
