@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 from excel import ExcelCreator
 
-# FALTA TESTAR EL PATH Y FILANAME
+#TODO: FALTA TESTAR EL PATH Y FILANAME
 
 def test_excel_creator_ok():
     """Testing the object creation"""

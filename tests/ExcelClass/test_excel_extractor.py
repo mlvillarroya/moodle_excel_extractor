@@ -26,6 +26,16 @@ def test_excel_extractor_wrong_path_raises_exception():
 
 def test_excel_extractor_no_settings_sheet_raises_exception():
     """Testing the object creation"""
+    ## Setup
+    folder = "tests"
+    filename = "errorExcel.xlsx"
+    excel = ExcelCreator(folder, filename)
+    excel.workbook["Settings"].title = "Wrong sheet"
+    excel.save_excel_file()
+    ## Test
+    path = os.path.join(folder,filename)
     with pytest.raises(KeyError) as exc_info:
-        extractor = ExcelExtractor("MoodleExcel.xlsx")
+        extractor = ExcelExtractor(path)
         assert str(exc_info) == "A sheet named Settings is missing. Please, create one"
+    ## Remove files
+    excel.remove_excel_file()
