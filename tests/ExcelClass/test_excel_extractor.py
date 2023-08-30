@@ -4,7 +4,7 @@ import pytest
 import os
 from excel import ExcelExtractor, ExcelCreator
 
-def test_excel_extractor_ok():
+def test_excel_extractor_without_category_ok():
     """Testing the object creation"""
     ## Setup
     folder = "tests"
@@ -15,6 +15,24 @@ def test_excel_extractor_ok():
     path = os.path.join(folder,filename)
     extractor = ExcelExtractor(path)
     assert extractor is not None
+    assert extractor.workbook is not None
+    assert extractor.main_category == ''
+    ## Remove files
+    excel.remove_excel_file()
+
+def test_excel_extractor_with_category_ok():
+    """Testing the object creation"""
+    ## Setup
+    folder = "tests"
+    filename = "okExcel.xlsx"
+    excel = ExcelCreator(folder, filename, demo_data= True)
+    excel.save_excel_file()
+    ## Test
+    path = os.path.join(folder,filename)
+    extractor = ExcelExtractor(path)
+    assert extractor is not None
+    assert extractor.workbook is not None
+    assert extractor.main_category == 'SMX_M03/Word processor'
     ## Remove files
     excel.remove_excel_file()
 

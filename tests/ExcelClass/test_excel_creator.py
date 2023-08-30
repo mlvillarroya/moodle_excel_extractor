@@ -4,8 +4,6 @@ import os
 import pytest
 from excel import ExcelCreator
 
-#TODO: FALTA TESTAR EL PATH Y FILENAME
-
 def test_excel_creator_ok():
     """Testing the object creation"""
     excel = ExcelCreator()
