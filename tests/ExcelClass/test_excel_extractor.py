@@ -57,3 +57,18 @@ def test_excel_extractor_no_settings_sheet_raises_exception():
         assert str(exc_info) == "A sheet named Settings is missing. Please, create one"
     ## Remove files
     excel.remove_excel_file()
+
+def test_excel_extractor_extract_questions_ok():
+    """Testing the object creation"""
+    ## Setup
+    folder = "tests"
+    filename = "okExcel.xlsx"
+    # excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
+    # excel.save_excel_file()
+    ## Test
+    path = os.path.join(folder,filename)
+    extractor = ExcelExtractor(path)
+    a = extractor.extract_questions()
+    ## Remove files
+    # excel.remove_excel_file()
+    pass

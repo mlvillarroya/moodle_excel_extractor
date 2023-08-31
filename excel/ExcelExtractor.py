@@ -32,27 +32,46 @@ class ExcelExtractor:
     def workbook(self):
         return self.__wb
 
-    def __extract_questions_from_sheet(self,sheetName):
-        ws = self.__wb[sheetName]
-        headers = []
+    def extract_questions(self):
+        return self.__extract_questions_from_sheet("Multiple choice")
+
+    def __extract_questions_from_sheet(self,sheet_name):
+        try:
+            worksheet = self.__wb[sheet_name]
+        except KeyError:
+            return None
+        if not self.__check_sheet_has_mandatory_columns(sheet_name):
+            raise ValueError(f"Worksheet {sheet_name} has not the mandatory columns")
+        headers = [cell.value for cell in self.__wb[sheet_name][1]]
+        mandatory_columns_index = self.__get_mandatory_columns(worksheet)
         questionsArray = []
-        for cell in ws[1]:
-            headers.append(cell.value)
-        for row in ws[2:10000]:
-            if row[0].value == None: break
-            questionData = {}
-            for i, cell in enumerate(row):
-                questionData[headers[i]] = str(cell.value) if cell.value != None else None
-            questionsArray.append(questionData)
+        for row in worksheet.iter_rows(min_col=1, min_row=2, max_col=self.__get_sheet_width(worksheet), max_row=self.__get_sheet_height(worksheet)):
+            if self.__every_mandatory_field_is_filled(mandatory_columns_index, row):
+                questionData = {headers[i]:cell.value for i, cell in enumerate(row)}
+                questionsArray.append(questionData)
         return questionsArray
 
     def __get_sheet_width(self, sheet):
         return sheet.max_column
+
+    def __get_sheet_height(self, sheet):
+        return sheet.max_row
     
     def __get_mandatory_columns(self, sheet):
-        fist_row = sheet[1]
-        mandatory_columns = []
-        for i, cell in enumerate(fist_row):
-            if "*" in cell.value:
-                mandatory_columns.append(i+1)
+        first_row = sheet[1]
+        mandatory_columns = [i for i, cell in enumerate(first_row) if cell.value is not None and "*" in cell.value]
         return mandatory_columns
+    
+    def __check_sheet_has_mandatory_columns(self, sheet_name):
+        sheets_names = list(constants.keys())
+        sheet_constants = [constants[k] for k in sheets_names if constants[k]["name"] == sheet_name][0]
+        sheet_mandatory_headers = [value[1] for value in sheet_constants["cell_titles"].values() if "*" in value[1]]
+        worksheet_headers = [cell.value for cell in self.__wb[sheet_name][1]]
+        for header in sheet_mandatory_headers:
+            if header not in worksheet_headers: return False
+        return True
+
+    def __every_mandatory_field_is_filled(self, mandatory_columns, row):
+        for column in mandatory_columns:
+            if row[column].value is None: return False
+        return True
