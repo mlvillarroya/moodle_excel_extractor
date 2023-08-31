@@ -45,3 +45,14 @@ class ExcelExtractor:
                 questionData[headers[i]] = str(cell.value) if cell.value != None else None
             questionsArray.append(questionData)
         return questionsArray
+
+    def __get_sheet_width(self, sheet):
+        return sheet.max_column
+    
+    def __get_mandatory_columns(self, sheet):
+        fist_row = sheet[1]
+        mandatory_columns = []
+        for i, cell in enumerate(fist_row):
+            if "*" in cell.value:
+                mandatory_columns.append(i+1)
+        return mandatory_columns
