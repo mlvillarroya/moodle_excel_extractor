@@ -1,7 +1,6 @@
 """Excel extractor class"""
-import openpyxl
 import json
-import misc.Constants as CS
+import openpyxl
 
 with open("static/excel_creation_constants.json", "r", encoding="utf8") as file:
     constants = json.load(file)
