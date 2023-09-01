@@ -14,7 +14,7 @@ class TrueFalseArray(BaseArray):
 
     def _extract_question(self,category,question,answers):
         return TrueFalse(category,\
-                        'TF'+str(self.successfull_answers),\
+                        'TF'+str(self.successful_answers),\
                         question[CS.TRUE_FALSE_QUESTION_TITLE],\
                         answers,\
                         question[CS.TRUE_FALSE_FEEDBACK_TITLE])

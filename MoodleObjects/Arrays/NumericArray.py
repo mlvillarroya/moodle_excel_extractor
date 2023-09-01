@@ -19,7 +19,7 @@ class NumericArray(BaseArray):
 
     def _extract_question(self,category,question,answers):
         return Numeric(category,\
-                        'N' + str(self.successfull_answers),\
+                        'N' + str(self.successful_answers),\
                         question[CS.NUMERIC_QUESTION_TITLE],\
                         answers,\
                         question[CS.NUMERIC_FEEDBACK_TITLE])

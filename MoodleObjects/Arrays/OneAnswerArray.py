@@ -28,7 +28,7 @@ class OneAnswerArray(BaseArray):
 
     def _extract_question(self,category,question,answers):
         return OneAnswer(category,\
-                            'OA'+str(self.successfull_answers),\
+                            'OA'+str(self.successful_answers),\
                             question[CS.ONE_ANSWER_QUESTION_TITLE],\
                             answers,\
                             question[CS.ONE_ANSWER_FEEDBACK_TITLE])

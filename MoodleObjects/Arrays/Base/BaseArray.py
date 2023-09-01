@@ -22,7 +22,7 @@ class BaseArray:
         return self.__questions_array
 
     @property
-    def successfull_answers(self):
+    def successful_answers(self):
         """Property: successfull answers"""
         return self.__successfull_answers
 
