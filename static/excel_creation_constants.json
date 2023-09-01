@@ -1,0 +1,115 @@
+{
+    "settings_sheet": 
+    {
+        "name" : "Settings",
+        "cell_titles":
+        {
+            "subject_name_title": ["A1", "Subject name"],
+            "chapter_name_title": ["B1", "Chapter name"],
+            "mandatory_field_label": ["E1", "* Mandatory Fields"]
+        },
+        "data":
+        {
+            "subject_name": "A2",
+            "chapter_name": "B2"
+        },
+        "demo_data":
+        {
+            "subject_name": ["A2", "SMX_M03"],
+            "chapter_name": ["B2", "Word processor"]
+        }
+    },
+    "multiple_choice_sheet": 
+    {
+        "name" : "Multiple choice",
+        "cell_titles":
+        {
+            "question_name_title": ["A1", "Question *"],
+            "correct_answer_title": ["B1", "Correct answer *"],
+            "incorrect_answer_1_title": ["C1", "Incorrect answer 1 *"],
+            "incorrect_answer_2_title": ["D1", "Incorrect answer 2"],
+            "incorrect_answer_3_title": ["E1", "Incorrect answer 3"],
+            "incorrect_answer_4_title": ["F1", "Incorrect answer 4"],
+            "bad_answer_points_title": ["G1", "Bad answer points"],
+            "feedback_title": ["H1", "Feedback"],
+            "subcategory_title": ["I1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "Meaning of CPU?"],
+            "correct_answer": ["B2", "Control process unit"],
+            "incorrect_answer_1": ["C2", "Carpenter public uniform"],
+            "incorrect_answer_2": ["D2", "Car pen use"],
+            "incorrect_answer_3": ["E2", "Coconut private use"],
+            "incorrect_answer_4": ["F2", "Cardigan pickle uniform"],
+            "bad_answer_points": ["G2", "-30"],
+            "feedback": ["H2", "That's an important question"],
+            "subcategory": ["I2", "Processing"]
+        }
+    },
+    "one_answer_sheet": 
+    {
+        "name" : "One answer",
+        "cell_titles":
+        {
+            "question_name_title": ["A1", "Question *"],
+            "correct_answer_title": ["B1", "Correct answer *"],
+            "alternate_correct_answer_1_title": ["C1", "Alternate correct answer"],
+            "alternate_correct_answer_2_title": ["D1", "Alternate correct answer 2"],
+            "alternate_correct_answer_3_title": ["E1", "Alternate correct answer 3"],
+            "alternate_correct_answer_4_title": ["F1", "Alternate correct answer 4"],
+            "feedback_title": ["G1", "Feedback"],
+            "subcategory_title": ["H1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "Acronym of the Federal Bureau of Investigation?"],
+            "correct_answer": ["B2", "FBI"],
+            "alternate_correct_answer_1": ["C2", "fbi"],
+            "alternate_correct_answer_2": ["D2", "Fbi"],
+            "alternate_correct_answer_3": ["E2", "fBi"],
+            "alternate_correct_answer_4": ["F2", "fbI"],
+            "feedback": ["G2", "That's an important question"],
+            "subcategory": ["H2", "Society"]
+        }
+    },
+    "true_false_sheet": 
+    {
+        "name" : "True_false",
+        "cell_titles":
+        {
+            "question_name_title": ["A1", "Question *"],
+            "correct_answer_title": ["B1", "True (T) or False (F)? *"],
+            "feedback_title": ["C1", "Feedback"],
+            "subcategory_title": ["D1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "RAM is volatile"],
+            "correct_answer": ["B2", "T"],
+            "feedback": ["C2", "RAM is volatile memory used to hold instructions and data of currently running programs. It loses integrity after loss of power."],
+            "subcategory": ["D2", "Memory"]
+        }
+    },
+    "numeric_sheet": 
+    {
+        "name" : "Numeric",
+        "cell_titles":
+        {
+            "question_name_title": ["A1", "Question *"],
+            "correct_answer_title": ["B1", "Correct numeric value *"],
+            "tolerance_title": ["C1", "Numeric tolerance *"],
+            "feedback_title": ["D1", "Feedback"],
+            "subcategory_title": ["E1", "Subcategory"]
+        },
+        "demo_data":
+        {
+            "question_name": ["A2", "Value of Pi?"],
+            "correct_answer": ["B2", "3.14"],
+            "tolerance": ["C2", "0.01"],
+            "feedback": ["D2", "Value of Pi is 3.141592653589793238"],
+            "subcategory": ["E2", "Math"]
+        }
+    }
+
+}

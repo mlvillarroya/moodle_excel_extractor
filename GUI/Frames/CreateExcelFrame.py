@@ -1,7 +1,7 @@
 from tkinter import END, Tk, ttk, IntVar
 from tkinter import filedialog
 import os
-from excel.ExcelCreator import ExcelCreator
+from excel.ExcelCreator.ExcelCreator import ExcelCreator
 from misc.ExplorerOpen import ExplorerOpen
 
 class CreateExcelFrame(ttk.Frame):
