@@ -19,8 +19,8 @@ class ExcelExtractor:
             raise KeyError("A sheet named Settings is missing. Please, create one")
         subject_name_cell = settings_constants["data"]["subject_name"]
         chapter_name_cell = settings_constants["data"]["chapter_name"]
-        subject_name = settings_sheet[subject_name_cell].value
-        chapter_name = settings_sheet[chapter_name_cell].value
+        subject_name = settings_sheet[subject_name_cell].value # type: ignore
+        chapter_name = settings_sheet[chapter_name_cell].value # type: ignore
         self.__main_category = '/'.join(filter(None, (subject_name, chapter_name)))
 
     @property

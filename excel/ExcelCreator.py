@@ -70,8 +70,10 @@ class ExcelCreator:
     def __configure_settings_sheet(self, demo_data= False):
         settings_constants = constants["settings_sheet"]
         first_sheet = self.__wb.active
+        if first_sheet is None:
+            raise NotImplementedError("Workbook does not have an active sheet")
         self.__insert_cell_text_into_sheet(settings_constants, first_sheet)
-        styling.first_row_adequation(first_sheet)
+        styling.first_row_adequation(first_sheet) # type: ignore
         if demo_data:
             self.__insert_demo_data_into_sheet(settings_constants, first_sheet)
 

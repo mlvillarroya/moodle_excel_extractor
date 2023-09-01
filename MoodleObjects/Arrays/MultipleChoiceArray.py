@@ -4,7 +4,7 @@ import misc.Constants as CS
 from .Base.BaseArray import BaseArray
 
 class MultipleChoiceArray(BaseArray):
-    """Class for multiplechoice questions array"""
+    """Class for multiple choice questions array"""
 
     def _extract_category(self, question, main_category):
         """Function to extract category"""

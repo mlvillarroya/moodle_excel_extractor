@@ -34,7 +34,10 @@ class ExcelCellStyling:
     def first_row_adequation(self, sheet: Worksheet):
         """Editing first row with border and background"""
         last_column_letter = sheet.dimensions[3]
-        for row in sheet['A1':last_column_letter+'1']:
+        for row in sheet.iter_rows(min_col=1,
+                                       min_row=1,
+                                       max_col=sheet.max_column, 
+                                       max_row=1):
             for cell in row:
                 self.__change_cell_alignment(cell,'center','center')
                 self.__change_cell_background_and_text_colors(cell,'E7AA73','653159')

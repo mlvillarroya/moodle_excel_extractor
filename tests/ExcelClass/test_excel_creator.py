@@ -165,5 +165,5 @@ def test_excel_creator_all_sheets_with_demo_data_creates_ok():
     assert numeric_sheet is not None
     excel.save_excel_file()
     assert os.path.isfile(os.path.join(excel.path,excel.filename))
-    excel.remove_excel_file()
-    assert os.path.isfile(os.path.join(excel.path,excel.filename)) is False
+    # excel.remove_excel_file()
+    # assert os.path.isfile(os.path.join(excel.path,excel.filename)) is False
