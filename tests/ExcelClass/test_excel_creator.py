@@ -105,7 +105,7 @@ def test_excel_creator_oa_demo_data_creates_ok():
 def test_excel_creator_tf_sheet_creates_ok():
     "Testing excel and tf sheet creation"
     excel = ExcelCreator(create_true_false= True)
-    tf_sheet = excel.workbook.get_sheet_by_name("True_False")
+    tf_sheet = excel.workbook.get_sheet_by_name("True_false")
     assert tf_sheet is not None
     assert tf_sheet['A1'].value == "Question *"
     assert tf_sheet['B1'].value == "True (T) or False (F)? *"
@@ -115,7 +115,7 @@ def test_excel_creator_tf_sheet_creates_ok():
 def test_excel_creator_tf_sheet_demo_data_creates_ok():
     "Testing tf sheet demo data creation"
     excel = ExcelCreator(create_true_false= True, demo_data= True)
-    tf_sheet = excel.workbook.get_sheet_by_name("True_False")
+    tf_sheet = excel.workbook.get_sheet_by_name("True_false")
     assert tf_sheet is not None
     assert tf_sheet['A2'].value == "RAM is volatile"
     assert tf_sheet['B2'].value == "T"
@@ -146,7 +146,11 @@ def test_excel_creator_numeric_sheet_demo_data_creates_ok():
 
 def test_excel_creator_all_sheets_with_demo_data_creates_ok():
     "Testing everything"
-    excel = ExcelCreator(create_multiple_choice= True,
+    folder = "tests"
+    filename = "okExcel.xlsx"
+    excel = ExcelCreator(folder,
+                         filename,
+                         create_multiple_choice= True,
                          create_one_answer= True,
                          create_true_false= True,
                          create_numeric= True, 
@@ -155,7 +159,7 @@ def test_excel_creator_all_sheets_with_demo_data_creates_ok():
     assert mc_sheet is not None
     oa_sheet = excel.workbook.get_sheet_by_name("One answer")
     assert oa_sheet is not None
-    tf_sheet = excel.workbook.get_sheet_by_name("True_False")
+    tf_sheet = excel.workbook.get_sheet_by_name("True_false")
     assert tf_sheet is not None
     numeric_sheet = excel.workbook.get_sheet_by_name("Numeric")
     assert numeric_sheet is not None

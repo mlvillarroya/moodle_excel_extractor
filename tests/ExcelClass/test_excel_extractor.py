@@ -53,22 +53,73 @@ def test_excel_extractor_no_settings_sheet_raises_exception():
     ## Test
     path = os.path.join(folder,filename)
     with pytest.raises(KeyError) as exc_info:
-        extractor = ExcelExtractor(path)
+        ExcelExtractor(path)
         assert str(exc_info) == "A sheet named Settings is missing. Please, create one"
     ## Remove files
     excel.remove_excel_file()
 
-def test_excel_extractor_extract_questions_ok():
+def test_excel_extractor_extract_questions_from_sheet_ok():
     """Testing the object creation"""
     ## Setup
     folder = "tests"
     filename = "okExcel.xlsx"
-    # excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
-    # excel.save_excel_file()
+    excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
+    excel.save_excel_file()
     ## Test
     path = os.path.join(folder,filename)
     extractor = ExcelExtractor(path)
-    a = extractor.extract_questions()
+    multiple_choice_questions = extractor.extract_questions_from_sheet("Multiple choice")
+    assert multiple_choice_questions is not None
     ## Remove files
-    # excel.remove_excel_file()
-    pass
+    excel.remove_excel_file()
+
+def test_excel_extractor_extract_questions_from_incorrect_sheet_returns_none():
+    """Testing the object creation"""
+    ## Setup
+    folder = "tests"
+    filename = "okExcel.xlsx"
+    excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
+    excel.save_excel_file()
+    ## Test
+    path = os.path.join(folder,filename)
+    extractor = ExcelExtractor(path)
+    no_questions = extractor.extract_questions_from_sheet("Fake sheet")
+    assert no_questions is None
+    ## Remove files
+    excel.remove_excel_file()
+
+def test_excel_extractor_extract_questions_from_sheet_without_mandatory_column_raises_exception():
+    """Testing the object creation"""
+    ## Setup
+    folder = "tests"
+    filename = "okExcel.xlsx"
+    excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
+    excel.workbook['Multiple choice'].delete_cols(1, 1)
+    excel.save_excel_file()
+    ## Test
+    path = os.path.join(folder,filename)
+    extractor = ExcelExtractor(path)
+    with pytest.raises(ValueError) as exc_info:
+        extractor.extract_questions_from_sheet("Multiple choice")
+        assert str(exc_info) == "Worksheet Multiple choice has not the mandatory columns"
+    ## Remove files
+    excel.remove_excel_file()
+
+def test_excel_extractor_extract_questions_from_all_sheets_ok():
+    """Testing the object creation"""
+    ## Setup
+    folder = "tests"
+    filename = "okExcel.xlsx"
+    excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
+    excel.save_excel_file()
+    ## Test
+    path = os.path.join(folder,filename)
+    extractor = ExcelExtractor(path)
+    questions = extractor.extract_questions_from_workbook()
+    assert questions is not None
+    assert "Multiple choice" in questions.keys()
+    assert "True_false" in questions.keys()
+    assert "Numeric" in questions.keys()
+    assert "One answer" in questions.keys()
+    ## Remove files
+    excel.remove_excel_file()

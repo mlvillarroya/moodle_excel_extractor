@@ -75,7 +75,7 @@
     },
     "true_false_sheet": 
     {
-        "name" : "True_False",
+        "name" : "True_false",
         "cell_titles":
         {
             "question_name_title": ["A1", "Question *"],
