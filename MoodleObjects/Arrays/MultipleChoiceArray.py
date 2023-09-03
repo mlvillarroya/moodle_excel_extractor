@@ -5,13 +5,14 @@ import misc.Constants as CS
 from .Base.BaseArray import BaseArray
 
 with open("static/excel_creation_constants.json", "r", encoding="utf8") as file:
-    constants = json.load(file)
+    CONSTANTS = json.load(file)
+ARRAY_NAME = 'multiple_choice_sheet'
 
 class MultipleChoiceArray(BaseArray):
     """Class for multiple choice questions array"""
     
     def __init__(self, dictionary_array, main_category = 'Category'):
-        super().__init__(dictionary_array, main_category,'multiple_choice_sheet', constants)
+        super().__init__(dictionary_array, main_category,ARRAY_NAME, CONSTANTS)
 
     def _extract_category(self, question, main_category):
         """Function to extract category"""
