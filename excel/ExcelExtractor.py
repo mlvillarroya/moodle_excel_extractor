@@ -1,8 +1,11 @@
 """Excel extractor class"""
 import json
 import openpyxl
+from os import path as OSPath
+from misc import ProjectPath
 
-with open("static/excel_creation_constants.json", "r", encoding="utf8") as file:
+constants_path = OSPath.join(ProjectPath.getProjectPath(), "static", "excel_creation_constants.json")
+with open(constants_path, "r", encoding="utf8") as file:
     constants = json.load(file)
 
 class ExcelExtractor:

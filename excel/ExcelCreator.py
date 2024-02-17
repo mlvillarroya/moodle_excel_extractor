@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+from misc import ProjectPath
 from os import remove as OSRemove
 from os import path as OSPath
 from enum import Enum
@@ -7,7 +8,8 @@ from openpyxl import Workbook
 import misc.Constants as CS
 from . import ExcelCellStyling
 
-with open("static/excel_creation_constants.json", "r", encoding="utf8") as file:
+constants_path = OSPath.join(ProjectPath.getProjectPath(), "static", "excel_creation_constants.json")
+with open(constants_path, "r", encoding="utf8") as file:
     constants = json.load(file)
 styling = ExcelCellStyling()
 

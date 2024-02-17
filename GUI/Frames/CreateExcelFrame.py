@@ -69,7 +69,7 @@ class CreateExcelFrame(ttk.Frame):
         buttonsFrame.columnconfigure(1, weight = 1)
         buttonsFrame.grid(row=2, column=0, columnspan=3)
         button = ttk.Button(buttonsFrame, text = "Create file", style = "Custom.TButton", command=lambda:createExcelFile())
-        button2 = ttk.Button(buttonsFrame, text = "Open folder", style = "Custom.TButton", command=lambda:ExplorerOpen.ExplorerOpen(self.template.path))
+        button2 = ttk.Button(buttonsFrame, text = "Open folder", style = "Custom.TButton", command=lambda:ExplorerOpen.ExplorerOpen(self.template.constants_path))
         button.grid(row=0,column=0, sticky="NS", padx=25, pady=5)
         button2.grid(row=0,column=1, sticky="NS", padx=25, pady=5)
         button2.state(['disabled'])        
