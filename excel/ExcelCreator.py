@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from misc import ProjectPath
+from misc import ProjectPaths
 from os import remove as OSRemove
 from os import path as OSPath
 from enum import Enum
@@ -8,7 +8,7 @@ from openpyxl import Workbook
 import misc.Constants as CS
 from . import ExcelCellStyling
 
-constants_path = OSPath.join(ProjectPath.getProjectPath(), "static", "excel_creation_constants.json")
+constants_path = OSPath.join(ProjectPaths.get_project_path(), "static", "excel_creation_constants.json")
 with open(constants_path, "r", encoding="utf8") as file:
     constants = json.load(file)
 styling = ExcelCellStyling()
@@ -30,7 +30,7 @@ class ExcelCreator:
                  create_numeric = False,
                  demo_data = False):
         if excel_mode == ExcelMode.CREATE:
-            self.__path = path if path != '' else Path().resolve().__str__()
+            self.__path = path if path != '' else ProjectPaths.get_output_path()
             self.__filename = filename
             self.__wb = Workbook()
             self.__configure_settings_sheet(demo_data)

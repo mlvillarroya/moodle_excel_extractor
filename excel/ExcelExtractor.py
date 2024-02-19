@@ -2,9 +2,9 @@
 import json
 import openpyxl
 from os import path as OSPath
-from misc import ProjectPath
+from misc import ProjectPaths
 
-constants_path = OSPath.join(ProjectPath.getProjectPath(), "static", "excel_creation_constants.json")
+constants_path = ProjectPaths.get_constants_path()
 with open(constants_path, "r", encoding="utf8") as file:
     constants = json.load(file)
 

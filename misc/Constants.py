@@ -1,4 +1,7 @@
 FILENAME = 'MoodleExcel.xlsx'
+STATIC_DIR_NAME = 'static'
+OUTPUT_DIR_NAME = 'output'
+EXCEL_CREATION_CONSTANTS_FILE = 'excel_creation_constants.json'
 SHEET_SUBJECT_NAME_CELL = 'A2'
 SHEET_CHAPTER_NAME_CELL = 'B2'
 MULTIPLE_CHOICE_SHEET_NAME = 'Multiple choice'

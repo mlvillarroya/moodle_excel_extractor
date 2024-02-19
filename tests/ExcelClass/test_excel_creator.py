@@ -3,12 +3,13 @@ from pathlib import Path
 import os
 import pytest
 from excel import ExcelCreator
+from misc import ProjectPaths
 
 def test_excel_creator_ok():
     """Testing the object creation"""
     excel = ExcelCreator()
     assert excel.filename == 'MoodleExcel.xlsx'
-    assert excel.path == str(Path().resolve())
+    assert excel.path == ProjectPaths.get_output_path()
     assert excel.workbook is not None
 
 def test_excel_creator_file_creates_removes_ok():
@@ -146,7 +147,7 @@ def test_excel_creator_numeric_sheet_demo_data_creates_ok():
 
 def test_excel_creator_all_sheets_with_demo_data_creates_ok():
     "Testing everything"
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder,
                          filename,
@@ -165,5 +166,5 @@ def test_excel_creator_all_sheets_with_demo_data_creates_ok():
     assert numeric_sheet is not None
     excel.save_excel_file()
     assert os.path.isfile(os.path.join(excel.path,excel.filename))
-    # excel.remove_excel_file()
-    # assert os.path.isfile(os.path.join(excel.path,excel.filename)) is False
+    excel.remove_excel_file()
+    assert os.path.isfile(os.path.join(excel.path,excel.filename)) is False
