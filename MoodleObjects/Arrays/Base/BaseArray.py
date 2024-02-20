@@ -70,5 +70,5 @@ class BaseArray:
             questions_printed += question.print_question() + '\n'
         return  questions_printed
 
-    def _extract_titles_from_constants(self,array_name, constants):
+    def _extract_titles_from_constants(self, array_name, constants):
         return {key:constants[array_name]["cell_titles"][key][1] for key in constants[array_name]["cell_titles"].keys()}

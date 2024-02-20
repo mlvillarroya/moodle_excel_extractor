@@ -15,7 +15,7 @@ class MultipleChoiceArray(BaseArray):
     """Class for multiple choice questions array"""
     
     def __init__(self, dictionary_array, main_category = 'Category'):
-        super().__init__(dictionary_array, main_category,ARRAY_NAME, CONSTANTS)
+        super().__init__(dictionary_array, main_category, ARRAY_NAME, CONSTANTS)
 
     def _extract_category(self, question, main_category):
         """Function to extract category"""

@@ -1,10 +1,20 @@
+import json
+
 from MoodleObjects.Answers import Answer
 from MoodleObjects.Questions import OneAnswer
 import misc.Constants as CS
+from misc import ProjectPaths
 from .Base.BaseArray import BaseArray
+with open(ProjectPaths.get_constants_path(), "r", encoding="utf8") as file:
+    CONSTANTS = json.load(file)
+ARRAY_NAME = 'one_answer_sheet'
+
 
 class OneAnswerArray(BaseArray):
     """Class for one answer questions array"""
+
+    def __init__(self, dictionary_array, main_category='Category'):
+        super().__init__(dictionary_array, main_category, ARRAY_NAME, CONSTANTS)
 
     def _extract_category(self,question, main_category):
         return main_category + '/' + \
