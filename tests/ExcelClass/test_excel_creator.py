@@ -14,8 +14,8 @@ def test_excel_creator_ok():
 
 def test_excel_creator_file_creates_removes_ok():
     """Testing file creation"""
-    excel = ExcelCreator("tests","myfile.xlsx")
-    assert excel.path == "tests"
+    excel = ExcelCreator(ProjectPaths.get_tests_path(),"myfile.xlsx")
+    assert excel.path == ProjectPaths.get_tests_path()
     assert excel.filename == "myfile.xlsx"
     excel.save_excel_file()
     assert os.path.isfile(os.path.join(excel.path,excel.filename))

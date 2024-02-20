@@ -3,11 +3,13 @@ from pathlib import Path
 import pytest
 import os
 from excel import ExcelExtractor, ExcelCreator
+from misc import ProjectPaths
+
 
 def test_excel_extractor_without_category_ok():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder, filename)
     excel.save_excel_file()
@@ -23,7 +25,7 @@ def test_excel_extractor_without_category_ok():
 def test_excel_extractor_with_category_ok():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder, filename, demo_data= True)
     excel.save_excel_file()
@@ -45,7 +47,7 @@ def test_excel_extractor_wrong_path_raises_exception():
 def test_excel_extractor_no_settings_sheet_raises_exception():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "errorExcel.xlsx"
     excel = ExcelCreator(folder, filename)
     excel.workbook["Settings"].title = "Wrong sheet"
@@ -61,7 +63,7 @@ def test_excel_extractor_no_settings_sheet_raises_exception():
 def test_excel_extractor_extract_questions_from_sheet_ok():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
     excel.save_excel_file()
@@ -76,7 +78,7 @@ def test_excel_extractor_extract_questions_from_sheet_ok():
 def test_excel_extractor_extract_questions_from_incorrect_sheet_returns_none():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
     excel.save_excel_file()
@@ -91,7 +93,7 @@ def test_excel_extractor_extract_questions_from_incorrect_sheet_returns_none():
 def test_excel_extractor_extract_questions_from_sheet_without_mandatory_column_raises_exception():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
     excel.workbook['Multiple choice'].delete_cols(1, 1)
@@ -108,7 +110,7 @@ def test_excel_extractor_extract_questions_from_sheet_without_mandatory_column_r
 def test_excel_extractor_extract_questions_from_all_sheets_ok():
     """Testing the object creation"""
     ## Setup
-    folder = "tests"
+    folder = ProjectPaths.get_tests_path()
     filename = "okExcel.xlsx"
     excel = ExcelCreator(folder, filename, create_multiple_choice= True, demo_data= True)
     excel.save_excel_file()
