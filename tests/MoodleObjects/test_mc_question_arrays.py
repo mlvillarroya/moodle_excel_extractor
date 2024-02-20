@@ -45,7 +45,7 @@ def test_mc_questions_question_with_no_title_not_created():
     """Test errors when a question has no title"""
     questions_with_errors = create_questions()
     questions_with_errors[1][CS.MULTIPLE_CHOICE_QUESTION_TITLE] = None # type: ignore
-    questions_generated = MultipleChoiceArray(questions_with_errors,'main_category')
+    questions_generated = MultipleChoiceArray(questions_with_errors, 'main_category')
     assert questions_generated.successful_answers == 1
     assert questions_generated.failed_answers == 1
 

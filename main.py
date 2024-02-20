@@ -1,97 +1,28 @@
-"""Main program"""
-import tkinter as tk
-from tkinter import ttk
-from MoodleObjects.Questions import MultipleChoice
-from MoodleObjects.Questions import Numeric
-from MoodleObjects.Questions import OneAnswer
-from MoodleObjects.Questions import TrueFalse
-from MoodleObjects.Answers import Answer
-from MoodleQuestions.Array.MultipleChoiceArray import MultipleChoiceArray
-from MoodleQuestions.Array.NumericArray import NumericArray
-from MoodleQuestions.Array.OneAnswerArray import OneAnswerArray
-from MoodleQuestions.Array.TrueFalseArray import TrueFalseArray
+from excel import ExcelCreator, ExcelExtractor
+from MoodleObjects import MultipleChoiceArray, NumericArray, OneAnswerArray, TrueFalseArray
+# create a demo excel file
+excel_file = ExcelCreator(demo_data=True,
+                          create_multiple_choice=True,
+                          create_numeric=True,
+                          create_one_answer=True,
+                          create_true_false=True)
+excel_file.save_excel_file()
 
-import misc.Constants as CS
-from misc import Windows
+# extract questions from the demo excel file
+excel_extractor = ExcelExtractor(excel_file.full_path)
+excel_questions = excel_extractor.extract_questions_from_workbook()
 
-from GUI.Style import Style
-
-""" trueFalse = TrueFalse("Test/C1","TF1","Primera pregunta",[Answer("T")],"Bravo, moreno")
-printedQuestion = trueFalse.printQuestion()
-print(printedQuestion)
-
-multipleChoice = MultipleChoice("Test/C2","MC1","Segunda Pregunta con opciones",[Answer("Respuesta correcta","Bravo"),Answer("Respuesta semicorrecta","Pichí pichá","50"),Answer("Respuesta incorrecta","Lo sisento, amigo","0"),Answer("Respuesta muy incorrecta","Madre mía cómo has podido poner esto","-30")],"Gracias, amigo")
-printedQuestion = multipleChoice.printQuestion()
-print(printedQuestion)
-
-oneAnswer = OneAnswer("Test/C3","MC1","Color del caballo blanco de Santiago",[Answer("Blanco"),Answer("White"),Answer("Txuria"),Answer("Blanche")],"Gracias, amigo")
-printedQuestion = oneAnswer.printQuestion()
-print(printedQuestion)
-
-numeric = Numeric("Test/C3","MC1","Valor de Pi",[Answer("3.14",numericTolerance="0.01")],"Gracias, amigo")
-printedQuestion = numeric.printQuestion()
-print(printedQuestion)
- """
-
-from excel.ExcelCreator.ExcelCreator import ExcelCreator
-from excel.ExcelExtractor import ExcelExtractor
-from GUI.Frames.CreateExcelFrame import CreateExcelFrame
-from GUI.Frames.CreateInstructionsFrame import CreateInstructionsFrame
-
-# template = ExcelCreator(True,True,True,True,demoData = True)
-# ExplorerOpen.ExplorerOpen(template.path)
-# ExplorerOpen.ExplorerOpen(template.path + '\\' + template.filename)
-# excel = ExcelExtractor('MoodleExcel.xlsx')
-# multipleChoiceDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.MULTIPLE_CHOICE_SHEET_NAME)
-# trueFalseDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.TRUE_FALSE_SHEET_NAME)
-# oneAnswerDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.ONE_ANSWER_SHEET_NAME)
-# numericDictionaryQuestions = excel.ExtractQuestionsFromSheet(CS.NUMERIC_SHEET_NAME)
-
-# trueFalseQuestions = TrueFalseArray()
-# trueFalseQuestions.createQuestionsArrayFromDictionaryArray(trueFalseDictionaryQuestions,excel.mainCategory)
-# for question in trueFalseQuestions.questionsArray:
-#     print(question.printQuestion())
-# multipleChoiceQuestions = MultipleChoiceArray()
-# multipleChoiceQuestions.createQuestionsArrayFromDictionaryArray(multipleChoiceDictionaryQuestions,excel.mainCategory)
-# for question in multipleChoiceQuestions.questionsArray:
-#     print(question.printQuestion())
-# oneAnswerQuestions = OneAnswerArray()
-# oneAnswerQuestions.createQuestionsArrayFromDictionaryArray(oneAnswerDictionaryQuestions,excel.mainCategory)
-# for question in oneAnswerQuestions.questionsArray:
-#     print(question.printQuestion())
-# numericQuestions = NumericArray()
-# numericQuestions.createQuestionsArrayFromDictionaryArray(numericDictionaryQuestions,excel.mainCategory)
-# for question in numericQuestions.questionsArray:
-#     print(question.printQuestion())
-
-# pass
-
-Windows.setDpiAwareness()
-
-root = tk.Tk()
-root.geometry("768x768")
-root.resizable(False,False)
-root.title("Moodle questions creator")
-
-# create a notebook
-notebook = ttk.Notebook(root, padding=10)
-notebook.pack(fill='both', expand=True)
-
-# create notebook frames
-instructionsFrame = CreateInstructionsFrame(notebook)
-createExcelFrame = CreateExcelFrame(notebook)
-extractExcelFrame = ttk.Frame(notebook)
-
-instructionsFrame.pack(fill='both', expand=True)
-createExcelFrame.pack(fill='both', expand=True)
-extractExcelFrame.pack(fill='both', expand=True)
-
-# add frames to notebook
-notebook.add(createExcelFrame, text='Create Excel')
-notebook.add(extractExcelFrame, text='Import Excel')
-notebook.add(instructionsFrame, text='Instructions')
-
-#styles
-Style.ConfigureGuiStyle()
-
-root.mainloop()
+# excel_questions is a dictionary. Each one of the keys to an object
+array_of_answers = []
+if "Multiple choice" in excel_questions:
+    multiple_choice_array = MultipleChoiceArray(excel_questions["Multiple choice"])
+    array_of_answers.append(multiple_choice_array)
+if "Numeric" in excel_questions:
+    numeric_array = NumericArray(excel_questions["Numeric"])
+    array_of_answers.append(numeric_array)
+if "One answer" in excel_questions:
+    one_answer_array = OneAnswerArray(excel_questions["One answer"])
+    array_of_answers.append(one_answer_array)
+if "True false" in excel_questions:
+    true_false_array = TrueFalseArray(excel_questions["True false"])
+    array_of_answers.append(true_false_array)

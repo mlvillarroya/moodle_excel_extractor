@@ -41,7 +41,7 @@ class ExcelExtractor:
         sheet_names = [constants[sheet]["name"] for sheet in constants.keys()]
         return {name:self.extract_questions_from_sheet(name) for name in sheet_names if name != "Settings"}
 
-    def extract_questions_from_sheet(self,sheet_name):
+    def extract_questions_from_sheet(self, sheet_name):
         """Method: extract question from one sheet"""
         try:
             worksheet = self.__wb[sheet_name]

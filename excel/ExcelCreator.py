@@ -21,17 +21,18 @@ class ExcelMode(Enum):
 class ExcelCreator:
     """Class to create excel files with example"""
     def __init__(self,
-                 path = '',
-                 filename = CS.FILENAME,
+                 folder_path='',
+                 filename=CS.FILENAME,
                  excel_mode: ExcelMode = ExcelMode.CREATE,
-                 create_multiple_choice = False,
-                 create_true_false = False,
-                 create_one_answer = False,
-                 create_numeric = False,
-                 demo_data = False):
+                 create_multiple_choice=False,
+                 create_true_false=False,
+                 create_one_answer=False,
+                 create_numeric=False,
+                 demo_data=False):
         if excel_mode == ExcelMode.CREATE:
-            self.__path = path if path != '' else ProjectPaths.get_output_path()
+            self.__folder_path = folder_path if folder_path != '' else ProjectPaths.get_output_path()
             self.__filename = filename
+            self.__full_path = OSPath.join(self.__folder_path, self.__filename)
             self.__wb = Workbook()
             self.__configure_settings_sheet(demo_data)
             if create_multiple_choice:
@@ -46,7 +47,7 @@ class ExcelCreator:
     @property
     def path(self):
         """Property: path"""
-        return self.__path
+        return self.__folder_path
 
     @property
     def filename(self):
@@ -58,16 +59,21 @@ class ExcelCreator:
         """Property: path"""
         return self.__wb
 
+    @property
+    def full_path(self):
+        """Property: full path"""
+        return self.__full_path
+
     def save_excel_file(self):
         """Function to save the workbook into a file"""
         try:
-            self.__wb.save(OSPath.join(self.__path,self.__filename))
+            self.__wb.save(self.__full_path)
         except FileNotFoundError:
-            raise FileNotFoundError("Path not exists. Please revise it")
+            raise FileNotFoundError('Path not exists. Please revise it')
 
     def remove_excel_file(self):
         """Function to save the workbook into a file"""
-        OSRemove(OSPath.join(self.__path,self.__filename))
+        OSRemove(OSPath.join(self.__folder_path, self.__filename))
 
     def __configure_settings_sheet(self, demo_data= False):
         settings_constants = constants["settings_sheet"]
