@@ -1,10 +1,12 @@
 """Generic question class"""
+from typing import List
+
 import misc.Constants as CS
 from MoodleObjects.Answers import Answer
 
 class Question:
     """Generic question class"""
-    def __init__(self, category, code, question, answers_list: list[Answer], general_feedback):
+    def __init__(self, category, code, question, answers_list: List[Answer], general_feedback):
         if code is None or \
             question is None or \
             answers_list is None:

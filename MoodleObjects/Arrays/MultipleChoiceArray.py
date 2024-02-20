@@ -3,9 +3,11 @@ from MoodleObjects.Answers import Answer
 from MoodleObjects.Questions import MultipleChoice
 import misc.Constants as CS
 from os import path as OSPath
+
+from misc import ProjectPaths
 from .Base.BaseArray import BaseArray
 
-with open(OSPath.join("static", "excel_creation_constants.json"), "r", encoding="utf8") as file:
+with open(ProjectPaths.get_constants_path(), "r", encoding="utf8") as file:
     CONSTANTS = json.load(file)
 ARRAY_NAME = 'multiple_choice_sheet'
 
