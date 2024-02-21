@@ -1,5 +1,5 @@
 import misc.Constants as CS
-from MoodleObjects.Arrays import MultipleChoiceArray
+from MoodleObjects import MultipleChoiceArray
 
 def create_questions():
     mc1_data = {

@@ -1,5 +1,5 @@
 import misc.Constants as CS
-from MoodleObjects.Arrays import TrueFalseArray
+from MoodleObjects import TrueFalseArray
 
 def create_questions():
     mc1_data = {

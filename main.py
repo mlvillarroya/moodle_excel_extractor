@@ -17,6 +17,7 @@ array_of_answers = []
 if "Multiple choice" in excel_questions:
     multiple_choice_array = MultipleChoiceArray(excel_questions["Multiple choice"])
     array_of_answers.append(multiple_choice_array)
+    multiple_choice_array.print_all_questions()
 if "Numeric" in excel_questions:
     numeric_array = NumericArray(excel_questions["Numeric"])
     array_of_answers.append(numeric_array)

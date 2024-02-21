@@ -1,5 +1,5 @@
 import misc.Constants as CS
-from MoodleObjects.Arrays import NumericArray
+from MoodleObjects import NumericArray
 
 
 def create_questions():
