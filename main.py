@@ -69,9 +69,12 @@ notebook.pack(fill=tk.BOTH, expand=True)
 # Frame izquierdo
 first_tab_left_frame = tk.Frame(create_excel_tab)
 first_tab_left_frame.pack(side="left", fill=tk.BOTH, expand=True)
-# Frame derecho
+# Frame central
 first_tab_center_frame = tk.Frame(create_excel_tab)
-first_tab_center_frame.pack(side="right", fill=tk.BOTH, expand=True)
+first_tab_center_frame.pack(side="left", fill=tk.BOTH, expand=True)
+# Frame derecho
+first_tab_right_frame = tk.Frame(create_excel_tab)
+first_tab_right_frame.pack(side="left", fill=tk.BOTH, expand=True)
 
 # El frame izquierdo tiene tres frames dentro
 first_tab_left_frame_subframe_1 = tk.Frame(first_tab_left_frame)
@@ -121,7 +124,9 @@ first_tab_center_frame_text_block = tk.Entry(first_tab_center_frame_subframe_2)
 first_tab_center_frame_text_block.pack(fill=tk.BOTH, expand=True)
 
 first_tab_center_frame_button = tk.Button(first_tab_center_frame_subframe_2, text="Browse")
-first_tab_center_frame_button.pack(fill=tk.BOTH, expand=True, padx=10)
+first_tab_center_frame_button.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
 
+first_tab_right_frame_button = tk.Button(first_tab_right_frame, text="Create excel")
+first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=30)
 # Ejecución de la ventana principal
 root.mainloop()
