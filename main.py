@@ -40,7 +40,7 @@ from GUI import create_excel_frame
 # Creación de la ventana principal
 root = tk.Tk()
 root.title("Excel creator")
-root.geometry("500x204")
+root.geometry("700x204")
 
 # Creación del frame principal
 main_frame = tk.Frame(root, padx=10, pady=0)
