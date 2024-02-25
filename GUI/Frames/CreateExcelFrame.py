@@ -1,76 +1,66 @@
-from tkinter import END, Tk, ttk, IntVar
-from tkinter import filedialog
-import os
-from excel.ExcelCreator.ExcelCreator import ExcelCreator
-from misc.ExplorerOpen import ExplorerOpen
+import tkinter as tk
+import tkinter.ttk as ttk
 
-class CreateExcelFrame(ttk.Frame):
-    def __init__(self,container):
-        super().__init__(container)
-        # main frame: two rows (selector and buttons)
-        self.rowconfigure(0, weight = 4)
-        self.rowconfigure(1, weight = 3)
-        self.rowconfigure(2, weight = 1)
-        self.columnconfigure(0, weight = 1)
-        self.columnconfigure(1, weight = 1)
-        self.columnconfigure(2, weight = 1)
-        # selector frame
-        multipleChoiceSelected = IntVar()
-        oneAnswerSelected = IntVar()
-        numericSelected = IntVar()
-        trueFalseSelected = IntVar()
-        createDemoDataSelected = IntVar()
-        sheetChooseFrame = ttk.Frame(self)
-        sheetChooseFrame.columnconfigure(0, weight= 1)
-        sheetChooseFrame.grid(row=0, column=1, sticky='W')
-        selectorTitle = ttk.Label(sheetChooseFrame,text="Create sheet for", style='selectorTitle.TLabel')
-        selectorTitle.grid(pady=50, sticky="NW")
-        multipleChoiceCheckbox = ttk.Checkbutton(sheetChooseFrame,text="Multiple choice",variable=multipleChoiceSelected)
-        multipleChoiceCheckbox.grid(sticky='NW')
-        oneAnswerCheckbox = ttk.Checkbutton(sheetChooseFrame,text="One answer", variable=oneAnswerSelected)
-        oneAnswerCheckbox.grid(sticky='NW')
-        numericCheckbox = ttk.Checkbutton(sheetChooseFrame,text="Numeric", variable = numericSelected)
-        numericCheckbox.grid(sticky='NW')
-        trueFalseCheckbox = ttk.Checkbutton(sheetChooseFrame,text="True / false", variable = trueFalseSelected)
-        trueFalseCheckbox.grid(sticky='NW')
-        createDemoDataCheckbox = ttk.Checkbutton(sheetChooseFrame, text="Create demo data", variable = createDemoDataSelected)
-        createDemoDataCheckbox.grid(sticky='NW', pady=50)
+def create_excel_frame(create_excel_tab):
+    # Frame izquierdo
+    first_tab_left_frame = tk.Frame(create_excel_tab)
+    first_tab_left_frame.pack(side="left", fill=tk.BOTH, expand=True)
+    # Frame central
+    first_tab_center_frame = tk.Frame(create_excel_tab)
+    first_tab_center_frame.pack(side="left", fill=tk.BOTH, expand=True)
+    # Frame derecho
+    first_tab_right_frame = tk.Frame(create_excel_tab)
+    first_tab_right_frame.pack(side="left", fill=tk.BOTH, expand=True)
 
-        def selectFolder(folderNameLabel):
-            self.folder = filedialog.askdirectory()
-            if self.folder:
-              try:
-                    folderNameLabel.config(text=getFolderName())
-              except:  # <- naked except is a bad idea
-                    Tk.showerror("Select folder", "Failed to select folder\n'%s'" % self.folder)
-              return
-          
-        def getFolderName():
-            return os.path.basename(os.path.normpath(self.folder))
+    # El frame izquierdo tiene tres frames dentro
+    first_tab_left_frame_subframe_1 = tk.Frame(first_tab_left_frame)
+    first_tab_left_frame_subframe_2 = tk.Frame(first_tab_left_frame)
 
-        def createExcelFile():
-            self.template = ExcelCreator(multipleChoiceSelected.get()==1,trueFalseSelected.get()==1,oneAnswerSelected.get()==1,numericSelected.get()==1,self.folder,createDemoDataSelected.get()==1)
-            button2.state(['!disabled'])
-        
-        fileSelectorFrame = ttk.Frame(self)
-        fileSelectorFrame.columnconfigure(0, weight=1)
-        fileSelectorFrame.grid(row=1, column=1, sticky='W')
-        #button to select folder
-        self.folder = os.getcwd()
-        fileSelectorButton = ttk.Button(fileSelectorFrame, text="Folder", command=lambda:selectFolder(fileSelectorPath))
-        fileSelectorButton.grid(row=0,column=0,pady="5")
-        #folder name
-        fileSelectorPath=ttk.Label(fileSelectorFrame,width="30", text=getFolderName())
-        fileSelectorPath.grid(row=0,column=1,sticky="e",padx=10)
+    first_tab_left_frame_subframe_1.pack(fill=tk.BOTH, expand=True)
+    first_tab_left_frame_subframe_2.pack(fill=tk.BOTH, expand=True)
 
-        # buttons frame
-        buttonsFrame = ttk.Frame(self)
-        buttonsFrame.columnconfigure(0, weight = 1)
-        buttonsFrame.columnconfigure(1, weight = 1)
-        buttonsFrame.grid(row=2, column=0, columnspan=3)
-        button = ttk.Button(buttonsFrame, text = "Create file", style = "Custom.TButton", command=lambda:createExcelFile())
-        button2 = ttk.Button(buttonsFrame, text = "Open folder", style = "Custom.TButton", command=lambda:ExplorerOpen.ExplorerOpen(self.template.constants_path))
-        button.grid(row=0,column=0, sticky="NS", padx=25, pady=5)
-        button2.grid(row=0,column=1, sticky="NS", padx=25, pady=5)
-        button2.state(['disabled'])        
-        
+    # El frame derecho tiene tres frames dentro
+    first_tab_center_frame_subframe_1 = tk.Frame(first_tab_center_frame)
+    first_tab_center_frame_subframe_2 = tk.Frame(first_tab_center_frame)
+
+    first_tab_center_frame_subframe_1.pack(fill=tk.BOTH, expand=True)
+    first_tab_center_frame_subframe_2.pack(fill=tk.BOTH, expand=True)
+
+    is_multiple_choice = tk.BooleanVar()
+    is_true_false = tk.BooleanVar()
+    is_numeric = tk.BooleanVar()
+    is_one_answer = tk.BooleanVar()
+    is_demo_data = tk.BooleanVar()
+
+    first_tab_left_frame_title = tk.Label(first_tab_left_frame_subframe_1, text="Question types")
+    first_tab_left_frame_title.pack(anchor="w")
+
+    first_tab_left_frame_option_1 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="Multiple choice", variable=is_multiple_choice)
+    first_tab_left_frame_option_1.pack(anchor="w")
+
+    first_tab_left_frame_option_2 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="True / false", variable=is_true_false)
+    first_tab_left_frame_option_2.pack(anchor="w")
+
+    first_tab_left_frame_option_3 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="Numeric", variable=is_numeric)
+    first_tab_left_frame_option_3.pack(anchor="w")
+
+    first_tab_left_frame_option_4 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="One answer 4", variable=is_one_answer)
+    first_tab_left_frame_option_4.pack(anchor="w")
+
+    first_tab_center_frame_title_1 = tk.Label(first_tab_center_frame_subframe_1, text="Demo data")
+    first_tab_center_frame_title_1.pack(anchor="w")
+
+    first_tab_center_frame_option_1 = tk.Checkbutton(first_tab_center_frame_subframe_1, text="Include demo data", variable=is_demo_data)
+    first_tab_center_frame_option_1.pack(anchor="w")
+
+    first_tab_center_frame_title_2 = tk.Label(first_tab_center_frame_subframe_2, text="File path")
+    first_tab_center_frame_title_2.pack(anchor="w")
+
+    first_tab_center_frame_text_block = tk.Entry(first_tab_center_frame_subframe_2)
+    first_tab_center_frame_text_block.pack(fill=tk.BOTH, expand=True)
+
+    first_tab_center_frame_button = tk.Button(first_tab_center_frame_subframe_2, text="Browse")
+    first_tab_center_frame_button.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+
+    first_tab_right_frame_button = tk.Button(first_tab_right_frame, text="Create excel")
+    first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=30)
