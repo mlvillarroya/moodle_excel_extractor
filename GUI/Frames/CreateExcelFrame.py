@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 from misc import ProjectPaths
 
 
-def create_excel_frame(create_excel_tab, browse_function, create_excel_function):
+def create_excel_frame(create_excel_tab, browse_function, open_function, create_excel_function):
     # Frame izquierdo
     first_tab_left_frame = ttk.Frame(create_excel_tab)
     first_tab_left_frame.pack(side="left", fill=tk.BOTH, expand=True)
@@ -62,7 +62,11 @@ def create_excel_frame(create_excel_tab, browse_function, create_excel_function)
     first_tab_center_frame_text_block.pack(fill=tk.BOTH, expand=True)
 
     first_tab_center_frame_button = ttk.Button(first_tab_center_frame_subframe_2, text="Browse", command=lambda: browse_function(first_tab_center_frame_text_block))
-    first_tab_center_frame_button.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+    first_tab_center_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
+    first_tab_center_frame_button = ttk.Button(first_tab_center_frame_subframe_2, text="Open folder", command=lambda: open_function(first_tab_center_frame_text_block.cget("text")))
+    first_tab_center_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
 
-    first_tab_right_frame_button = ttk.Button(first_tab_right_frame, text="Create excel", command=lambda: create_excel_function(demo_data_var.get(), multiple_choice_var.get(), true_false_var.get(), numeric_var.get(), one_answer_var.get(), first_tab_center_frame_text_block.cget("text")))
-    first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=30)
+    first_tab_right_frame_success_message = ttk.Label(first_tab_right_frame, text="")
+    first_tab_right_frame_button = ttk.Button(first_tab_right_frame, text="Create excel", command=lambda: create_excel_function(demo_data_var.get(), multiple_choice_var.get(), true_false_var.get(), numeric_var.get(), one_answer_var.get(), first_tab_center_frame_text_block.cget("text"), first_tab_right_frame_success_message))
+    first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
+    first_tab_right_frame_success_message.pack(anchor="center")

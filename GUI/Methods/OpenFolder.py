@@ -1,5 +1,6 @@
-from tkinter import filedialog
+import os
 
 
-def open_folder(label_to_change):
-    label_to_change.config(text=filedialog.askdirectory(initialdir=label_to_change.cget("text")))
+# Python file to open the OS explorer into the selected folder.
+def open_folder(folder_path):
+    os.startfile(folder_path)
