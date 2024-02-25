@@ -1,3 +1,5 @@
+from excel import ExcelCreator
+
 
 # create a demo excel file
 # excel_file = ExcelCreator(demo_data=True,
@@ -34,9 +36,10 @@
 
 # GUI creation
 
+
 import tkinter as tk
 import tkinter.ttk as ttk
-from GUI import create_excel_frame
+from GUI import create_excel_frame, create_excel_file, open_folder
 # Creación de la ventana principal
 root = tk.Tk()
 root.title("Excel creator")
@@ -61,6 +64,8 @@ notebook.add(help_tab, text="Help")
 notebook.pack(fill=tk.BOTH, expand=True)
 
 # Diseño de la primera pestaña
-create_excel_frame(create_excel_tab)
+create_excel_frame(create_excel_tab, open_folder, create_excel_file)
 # Ejecución de la ventana principal
 root.mainloop()
+
+
