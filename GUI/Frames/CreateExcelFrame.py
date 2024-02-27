@@ -46,7 +46,7 @@ def create_excel_frame(create_excel_tab, browse_function, open_function, create_
     first_tab_left_frame_option_3 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="Numeric", variable=numeric_var)
     first_tab_left_frame_option_3.pack(anchor="w")
 
-    first_tab_left_frame_option_4 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="One answer 4", variable=one_answer_var)
+    first_tab_left_frame_option_4 = tk.Checkbutton(first_tab_left_frame_subframe_2, text="One answer", variable=one_answer_var)
     first_tab_left_frame_option_4.pack(anchor="w")
 
     first_tab_center_frame_title_1 = ttk.Label(first_tab_center_frame_subframe_1, text="Demo data")
