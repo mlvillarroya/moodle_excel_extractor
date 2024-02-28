@@ -1,9 +1,11 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from misc import ProjectPaths
+from misc import ProjectPaths, FileUtils
 
 
 def extract_excel_frame(extract_excel_tab, browse_function, open_function, create_gift_function):
+    #TODO create class and use SELF
+
     # Frame izquierdo
     first_tab_left_frame = ttk.Frame(extract_excel_tab)
     first_tab_left_frame.pack(side="left", fill=tk.BOTH, expand=True)
@@ -34,10 +36,11 @@ def extract_excel_frame(extract_excel_tab, browse_function, open_function, creat
     one_answer_var = tk.BooleanVar()
     demo_data_var = tk.BooleanVar()
 
+    file_path = ProjectPaths.get_output_path()
     first_tab_left_frame_title_2 = ttk.Label(first_tab_left_frame_subframe_1, text="Filled Excel path")
     first_tab_left_frame_title_2.pack(anchor="w")
 
-    first_tab_left_frame_text_block = ttk.Label(first_tab_left_frame_subframe_1, text=ProjectPaths.get_output_path())
+    first_tab_left_frame_text_block = ttk.Label(first_tab_left_frame_subframe_1, text=file_path)
     first_tab_left_frame_text_block.pack(fill=tk.BOTH, expand=True)
 
     first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Browse", command=lambda: browse_function(first_tab_left_frame_text_block))

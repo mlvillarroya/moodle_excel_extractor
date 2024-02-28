@@ -8,3 +8,10 @@ def create_txt_file(path, content):
     except Exception as e:
         raise e
     return path
+
+
+def crop_path_folders(path, number_of_folders):
+    # split the path into folders
+    folders = path.split("\\")
+    # crop the folders and return the last part of the path beginning by dots
+    return "...\\{}".format("\\".join(folders[-number_of_folders:]))
