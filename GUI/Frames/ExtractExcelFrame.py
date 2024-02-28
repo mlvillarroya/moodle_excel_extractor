@@ -42,7 +42,7 @@ def extract_excel_frame(extract_excel_tab, browse_function, open_function, creat
 
     first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Browse", command=lambda: browse_function(first_tab_left_frame_text_block))
     first_tab_left_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
-    first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Open folder", command=lambda: open_function(first_tab_left_frame_text_block.cget("text")))
+    first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Open", command=lambda: open_function(first_tab_left_frame_text_block.cget("text")))
     first_tab_left_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
 
     first_tab_left_frame_title_1 = ttk.Label(first_tab_left_frame_subframe_2, text="Analyze data")

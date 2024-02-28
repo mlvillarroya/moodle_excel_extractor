@@ -39,7 +39,7 @@ from excel import ExcelCreator
 
 import tkinter as tk
 import tkinter.ttk as ttk
-from GUI import create_excel_frame, create_excel_file, browse_folder, open_folder, extract_excel_frame
+from GUI import create_excel_frame, create_excel_file, browse_folder, open_folder, extract_excel_frame, browse_file
 # Creación de la ventana principal
 root = tk.Tk()
 root.title("Excel creator")
@@ -65,7 +65,7 @@ notebook.pack(fill=tk.BOTH, expand=True)
 
 # Diseño de la primera pestaña
 #create_excel_frame(create_excel_tab, browse_folder, open_folder, create_excel_file)
-extract_excel_frame(create_excel_tab, browse_folder, open_folder, create_excel_file)
+extract_excel_frame(create_excel_tab, browse_file, open_folder, create_excel_file)
 
 # Ejecución de la ventana principal
 root.mainloop()
