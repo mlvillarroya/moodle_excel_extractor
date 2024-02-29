@@ -37,37 +37,8 @@ from excel import ExcelCreator
 # GUI creation
 
 
-import tkinter as tk
-import tkinter.ttk as ttk
-from GUI import create_excel_frame, create_excel_file, browse_folder, open_folder, extract_excel_frame, browse_file
-# Creación de la ventana principal
-root = tk.Tk()
-root.title("Excel creator")
-root.geometry("700x204")
+from GUI import ExcelGUI
 
-# Creación del frame principal
-main_frame = tk.Frame(root, padx=10, pady=0)
-main_frame.pack(fill=tk.BOTH, expand=True)
-# Asignar el mismo peso a cada columna del frame principal
-
-notebook = ttk.Notebook(main_frame)
-# Creación de las pestañas
-create_excel_tab = tk.Frame(notebook)
-extract_excel_tab = tk.Frame(notebook)
-help_tab = tk.Frame(notebook)
-
-# Añadir las pestañas al notebook
-
-notebook.add(create_excel_tab, text="Create excel", padding=20)
-notebook.add(extract_excel_tab, text="Extract excel")
-notebook.add(help_tab, text="Help")
-notebook.pack(fill=tk.BOTH, expand=True)
-
-# Diseño de la primera pestaña
-#create_excel_frame(create_excel_tab, browse_folder, open_folder, create_excel_file)
-extract_excel_frame(create_excel_tab, browse_file, open_folder, create_excel_file)
-
-# Ejecución de la ventana principal
-root.mainloop()
-
+excel_gui = ExcelGUI()
+excel_gui.create_GUI()
 
