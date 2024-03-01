@@ -1,3 +1,4 @@
+import os
 # Create a txt file and save it into a path
 def create_txt_file(path, content):
     # if there is some error, raise it
@@ -11,7 +12,7 @@ def create_txt_file(path, content):
 
 
 def crop_path_folders(path, number_of_folders):
-    # split the path into folders
-    folders = path.split("\\")
-    # crop the folders and return the last part of the path beginning by dots
-    return "...\\{}".format("\\".join(folders[-number_of_folders:]))
+    # split the path into folders with os separator
+    folders = path.split(os.sep)
+    # crop the folders and return the last part of the path beginning by dots and a separator
+    return "..."+os.sep+(os.sep.join(folders[-number_of_folders:]))

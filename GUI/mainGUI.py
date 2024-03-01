@@ -1,12 +1,17 @@
+import os
 import tkinter as tk
 import tkinter.ttk as ttk
+from tkinter import filedialog
+
 from misc import ProjectPaths, FileUtils
-from GUI import create_excel_frame, create_excel_file, browse_folder, open_folder, extract_excel_frame, browse_file
+from GUI import create_excel_frame, create_excel_file, browse_folder, browse_file
 
 class ExcelGUI:
     def __init__(self):
         self.__excel_path = ProjectPaths.get_output_path()
         self.__excel_filename = ""
+        self.root = tk.Tk()
+        self.__excel_path_string_variable = tk.StringVar(master=self.root, value=self.excel_shorten_path)
 
     @property
     def excel_path(self):
@@ -26,16 +31,15 @@ class ExcelGUI:
 
     @property
     def excel_shorten_path(self):
-        return FileUtils.crop_path_folders(self.__excel_filename, 2)
+        return FileUtils.crop_path_folders(self.__excel_path, 2)
 
     def create_GUI(self):
         # Creación de la ventana principal
-        root = tk.Tk()
-        root.title("Excel creator")
-        root.geometry("700x204")
+        self.root.title("Excel creator")
+        self.root.geometry("700x204")
 
         # Creación del frame principal
-        main_frame = tk.Frame(root, padx=10, pady=0)
+        main_frame = tk.Frame(self.root, padx=10, pady=0)
         main_frame.pack(fill=tk.BOTH, expand=True)
         # Asignar el mismo peso a cada columna del frame principal
 
@@ -53,12 +57,12 @@ class ExcelGUI:
 
         # Creación de los frames de cada pestaña
         # create_excel_frame(create_excel_tab, browse_folder, open_folder, create_excel_file)
-        extract_excel_frame(create_excel_tab, browse_file, open_folder, create_excel_file)
+        self.create_extract_excel_frame(create_excel_tab)
 
         # Mostrar la ventana principal
-        root.mainloop()
+        self.root.mainloop()
 
-    def extract_excel_frame(self, extract_excel_tab, browse_function, open_function, create_gift_function):
+    def create_extract_excel_frame(self, extract_excel_tab):
         #TODO create class and use SELF
         # Frame izquierdo
         first_tab_left_frame = ttk.Frame(extract_excel_tab)
@@ -84,22 +88,15 @@ class ExcelGUI:
         first_tab_center_frame_subframe_1.pack(fill=tk.BOTH, expand=True)
         first_tab_center_frame_subframe_2.pack(fill=tk.BOTH, expand=True)
 
-        multiple_choice_var = tk.BooleanVar()
-        true_false_var = tk.BooleanVar()
-        numeric_var = tk.BooleanVar()
-        one_answer_var = tk.BooleanVar()
-        demo_data_var = tk.BooleanVar()
-
-        file_path = ProjectPaths.get_output_path()
         first_tab_left_frame_title_2 = ttk.Label(first_tab_left_frame_subframe_1, text="Filled Excel path")
         first_tab_left_frame_title_2.pack(anchor="w")
 
-        first_tab_left_frame_text_block = ttk.Label(first_tab_left_frame_subframe_1, text=file_path)
+        first_tab_left_frame_text_block = ttk.Label(first_tab_left_frame_subframe_1, textvariable=self.__excel_path_string_variable)
         first_tab_left_frame_text_block.pack(fill=tk.BOTH, expand=True)
 
-        first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Browse", command=lambda: browse_function(first_tab_left_frame_text_block))
+        first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Browse", command=lambda: self.browse_file())
         first_tab_left_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
-        first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Open", command=lambda: open_function(first_tab_left_frame_text_block.cget("text")))
+        first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Open", command=lambda: self.open_function())
         first_tab_left_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
 
         first_tab_left_frame_title_1 = ttk.Label(first_tab_left_frame_subframe_2, text="Analyze data")
@@ -128,6 +125,23 @@ class ExcelGUI:
         first_tab_center_frame_option_5.pack(anchor="w", pady=10)
 
         first_tab_right_frame_success_message = ttk.Label(first_tab_right_frame, text="")
-        first_tab_right_frame_button = ttk.Button(first_tab_right_frame, text="Create GIFT", command=lambda: create_gift_function(demo_data_var.get(), multiple_choice_var.get(), true_false_var.get(), numeric_var.get(), one_answer_var.get(), first_tab_center_frame_text_block.cget("text"), first_tab_right_frame_success_message))
+        first_tab_right_frame_button = ttk.Button(first_tab_right_frame, text="Create GIFT")
         first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
         first_tab_right_frame_success_message.pack(anchor="center")
+
+    def browse_file(self):
+        file_path = os.path.join(self.__excel_path, self.__excel_filename)
+        file = filedialog.askopenfile(mode='r', filetypes=[("Excel files", "*.xlsx")], initialdir=self.excel_path)
+        self.excel_path = os.path.normpath(os.path.dirname(file.name))
+        self.excel_filename = os.path.basename(file.name)
+        self.__excel_path_string_variable.set(self.excel_shorten_path)
+        pass
+
+    def open_function(self):
+        os.startfile(self.excel_path)
+
+    def __parent_folder(original_path):
+        if os.path.isdir(original_path):
+            return original_path
+        else:
+            return os.path.dirname(original_path)
