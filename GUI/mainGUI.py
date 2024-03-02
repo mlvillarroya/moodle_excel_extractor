@@ -120,7 +120,7 @@ class ExcelGUI:
         first_tab_left_frame_text_block = ttk.Label(first_tab_left_frame_subframe_1, textvariable=self.__excel_path_string_variable)
         first_tab_left_frame_text_block.pack(fill=tk.BOTH, expand=True)
 
-        first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Browse", command=lambda: self.browse_file())
+        first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Browse", command=lambda: self.browse_file(first_tab_left_frame_option_1))
         first_tab_left_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
         first_tab_left_frame_button = ttk.Button(first_tab_left_frame_subframe_1, text="Open", command=lambda: self.open_function())
         first_tab_left_frame_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=5)
@@ -128,7 +128,8 @@ class ExcelGUI:
         first_tab_left_frame_title_1 = ttk.Label(first_tab_left_frame_subframe_2, text="Analyze data")
         first_tab_left_frame_title_1.pack(anchor="w")
 
-        first_tab_left_frame_option_1 = ttk.Button(first_tab_left_frame_subframe_2, text="Analyze", command=lambda: self.extract_excel())
+        first_tab_left_frame_option_1 = ttk.Button(first_tab_left_frame_subframe_2, text="Analyze", command=lambda: self.extract_excel(first_tab_right_frame_button))
+        first_tab_left_frame_option_1.config(state="disabled")
         first_tab_left_frame_option_1.pack(padx=10, pady=5)
 
 
@@ -150,20 +151,19 @@ class ExcelGUI:
         first_tab_center_frame_option_5 = tk.Label(first_tab_center_frame_subframe_2, text="")
         first_tab_center_frame_option_5.pack(anchor="w", pady=10)
 
-        first_tab_right_frame_success_message = ttk.Label(first_tab_right_frame, text="")
         first_tab_right_frame_button = ttk.Button(first_tab_right_frame, text="Create GIFT")
+        first_tab_right_frame_button.config(state="disabled")
         first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
-        first_tab_right_frame_success_message.pack(anchor="center")
 
-    def browse_file(self):
+    def browse_file(self, enable_button: ttk.Button):
         file_path = os.path.join(self.__excel_path, self.__excel_filename)
         file = filedialog.askopenfile(mode='r', filetypes=[("Excel files", "*.xlsx")], initialdir=self.excel_path)
         self.excel_path = os.path.normpath(os.path.dirname(file.name))
         self.excel_filename = os.path.basename(file.name)
         self.__excel_path_string_variable.set(self.excel_shorten_path)
-        pass
+        enable_button.config(state="normal")
 
-    def extract_excel(self):
+    def extract_excel(self, enable_button: ttk.Button):
         if not os.path.isfile(os.path.join(self.excel_path,self.excel_filename)):
             return
         excel = ExcelExtractor(os.path.join(self.excel_path,self.excel_filename))
@@ -189,8 +189,7 @@ class ExcelGUI:
             self.__true_false_questions['successful'] = true_false_array.successful_answers
             self.__true_false_questions['failed'] = true_false_array.failed_answers
             self.__true_false_questions['questions'] = true_false_array.question_array
-
-        pass
+        enable_button.config(state="normal")
 
     def open_function(self):
         os.startfile(self.excel_path)
