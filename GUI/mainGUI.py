@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from enum import Enum
 
 from MoodleObjects import MultipleChoiceArray, TrueFalseArray, NumericArray, OneAnswerArray
@@ -28,16 +28,16 @@ class ExcelGUI:
         self.__one_answer_questions_string_variable = tk.StringVar(master=self.root, value="One answer\t0/0")
         self.__numeric_questions = {'successful': 0,
                                     'failed': 0,
-                                    'questions': []}
+                                    'questions_txt': ""}
         self.__true_false_questions = {'successful': 0,
                                        'failed': 0,
-                                       'questions': []}
+                                       'questions_txt': ""}
         self.__multiple_choice_questions = {'successful': 0,
                                             'failed': 0,
-                                            'questions': []}
+                                            'questions_txt': ""}
         self.__one_answer_questions = {'successful': 0,
                                        'failed': 0,
-                                       'questions': []}
+                                       'questions_txt': ""}
 
     @property
     def excel_path(self):
@@ -89,16 +89,15 @@ class ExcelGUI:
         self.root.mainloop()
 
     def create_extract_excel_frame(self, extract_excel_tab):
-        #TODO create class and use SELF
         # Frame izquierdo
         first_tab_left_frame = ttk.Frame(extract_excel_tab)
-        first_tab_left_frame.pack(side="left", fill=tk.BOTH, expand=True)
+        first_tab_left_frame.pack(side="left", fill=tk.BOTH, expand=True, pady=10)
         # Frame central
         first_tab_center_frame = ttk.Frame(extract_excel_tab)
-        first_tab_center_frame.pack(side="left", fill=tk.BOTH, expand=True)
+        first_tab_center_frame.pack(side="left", fill=tk.BOTH, expand=True, pady=10)
         # Frame derecho
         first_tab_right_frame = ttk.Frame(extract_excel_tab)
-        first_tab_right_frame.pack(side="left", fill=tk.BOTH, expand=True)
+        first_tab_right_frame.pack(side="left", fill=tk.BOTH, expand=True, pady=10)
 
         # El frame izquierdo tiene tres frames dentro
         first_tab_left_frame_subframe_1 = ttk.Frame(first_tab_left_frame)
@@ -152,7 +151,7 @@ class ExcelGUI:
         first_tab_center_frame_option_5.pack(anchor="w", pady=10)
 
         first_tab_right_frame_button = ttk.Button(first_tab_right_frame, text="Create GIFT")
-        first_tab_right_frame_button.config(state="disabled")
+        first_tab_right_frame_button.config(state="disabled", command=lambda: self.export_to_gift())
         first_tab_right_frame_button.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
 
     def browse_file(self, enable_button: ttk.Button):
@@ -172,27 +171,45 @@ class ExcelGUI:
             multiple_choice_array = MultipleChoiceArray(excel_questions["Multiple choice"])
             self.__multiple_choice_questions['successful'] = multiple_choice_array.successful_answers
             self.__multiple_choice_questions['failed'] = multiple_choice_array.failed_answers
-            self.__multiple_choice_questions['questions'] = multiple_choice_array.question_array
+            self.__multiple_choice_questions['questions_txt'] = multiple_choice_array.print_all_questions()
             self.update_text_variable(QuestionTypes.MULTIPLE_CHOICE)
         if not excel_questions["Numeric"] is None:
             numeric_array = NumericArray(excel_questions["Numeric"])
             self.__numeric_questions['successful'] = numeric_array.successful_answers
             self.__numeric_questions['failed'] = numeric_array.failed_answers
-            self.__numeric_questions['questions'] = numeric_array.question_array
+            self.__numeric_questions['questions_txt'] = numeric_array.print_all_questions()
         if not excel_questions["One answer"] is None:
             one_answer_array = OneAnswerArray(excel_questions["One answer"])
             self.__one_answer_questions['successful'] = one_answer_array.successful_answers
             self.__one_answer_questions['failed'] = one_answer_array.failed_answers
-            self.__one_answer_questions['questions'] = one_answer_array.question_array
+            self.__one_answer_questions['questions_txt'] = one_answer_array.print_all_questions()
         if not excel_questions["True_false"] is None:
             true_false_array = TrueFalseArray(excel_questions["True_false"])
             self.__true_false_questions['successful'] = true_false_array.successful_answers
             self.__true_false_questions['failed'] = true_false_array.failed_answers
-            self.__true_false_questions['questions'] = true_false_array.question_array
+            self.__true_false_questions['questions_txt'] = true_false_array.print_all_questions()
         enable_button.config(state="normal")
+        messagebox.showinfo("Excel extracted", "Excel has been extracted. You can check the output to see how many questions can be created.")
 
     def open_function(self):
         os.startfile(self.excel_path)
+
+    def export_to_gift(self):
+        answer = []
+        if self.__true_false_questions['questions_txt'] != "":
+            answer.append(self.__true_false_questions['questions_txt'])
+        if self.__multiple_choice_questions['questions_txt'] != "":
+            answer.append(self.__multiple_choice_questions['questions_txt'])
+        if self.__numeric_questions['questions_txt'] != "":
+            answer.append(self.__numeric_questions['questions_txt'])
+        if self.__one_answer_questions['questions_txt'] != "":
+            answer.append(self.__one_answer_questions['questions_txt'])
+        if len(answer) > 0:
+            FileUtils.create_txt_file(os.path.join(self.__excel_path,"answers.txt"), "\n".join(answer))
+            messagebox.showinfo("GIFT created",
+                                "Gift file created! Now you can import it on moodle")
+            self.open_function()
+
 
     def __parent_folder(original_path):
         if os.path.isdir(original_path):
