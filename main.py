@@ -2,9 +2,15 @@ from GUI import ExcelGUI
 
 
 def main():
-    excel_gui = ExcelGUI()
-    excel_gui.create_GUI()
+    try:
+        excel_gui = ExcelGUI()
+        excel_gui.create_GUI()
+    except Exception as e:
+        print(f"Error: {e}")
+        input("Press Enter to continue...")
 
 
 if __name__ == "__main__":
     main()
+
+# pyinstaller --add-data static:static --add-data output:output --contents-directory contents main.py
