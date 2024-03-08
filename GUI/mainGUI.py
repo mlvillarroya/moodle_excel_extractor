@@ -5,7 +5,7 @@ from tkinter import filedialog, messagebox
 from enum import Enum
 
 from MoodleObjects import MultipleChoiceArray, TrueFalseArray, NumericArray, OneAnswerArray
-from misc import ProjectPaths, FileUtils
+from misc import ProjectPaths, FileUtils, ExplorerOpen
 from excel import ExcelExtractor, ExcelCreator
 
 
@@ -291,7 +291,7 @@ class ExcelGUI:
         messagebox.showinfo("Excel extracted", "Excel has been extracted. You can check the output to see how many questions can be created.")
 
     def open_function(self):
-        os.startfile(self.excel_folder_path)
+        ExplorerOpen.open_folder(self.excel_folder_path)
 
     def create_excel_file(self, has_demo_data, create_multiple_choice, create_true_false, create_numeric, create_one_answer):
         try:
