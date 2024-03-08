@@ -4,6 +4,5 @@ __pycache__
 *.xlsx
 /.idea
 /dist
-/output
 /build
 /main.spec
