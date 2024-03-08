@@ -13,4 +13,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# pyinstaller --add-data static:static --add-data output:output --contents-directory contents main.py
+# pyinstaller --name moodle_excel_extractor --add-data static:static --add-data output:output --contents-directory contents --windowed main.py
