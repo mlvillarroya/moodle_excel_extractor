@@ -13,7 +13,7 @@ class MultipleChoice(Question):
         """Function to create custom text for multiple choice questions"""
         complete_answer = ''
         for index,answer in enumerate(self.answers_list):
-            value = "%" + str(answer.value) + "%" if answer.value != '' else ''
+            value = "%" + str(answer.value) + "%" if (answer.value != '' and answer.value is not None) else ''
             answer_value = "=" if index == 0 else "~" + value
             feedback = "#" + answer.feedback if answer.feedback != '' else ''
             next_line = "\n" if index < len(self.answers_list) - 1 else ''
