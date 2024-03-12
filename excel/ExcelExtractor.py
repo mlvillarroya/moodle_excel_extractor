@@ -57,7 +57,7 @@ class ExcelExtractor:
                                        max_col=self.__get_sheet_width(worksheet), 
                                        max_row=self.__get_sheet_height(worksheet)):
             if self.__every_mandatory_field_is_filled(mandatory_columns_index, row):
-                question_data = {headers[i]:cell.value for i, cell in enumerate(row)}
+                question_data = {headers[i]: str(cell.value) for i, cell in enumerate(row)}
                 questions_array.append(question_data)
         return questions_array
 
