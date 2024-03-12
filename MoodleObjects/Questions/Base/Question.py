@@ -2,6 +2,7 @@
 from typing import List
 
 import misc.Constants as CS
+import misc.StringFunctions as SF
 from MoodleObjects.Answers import Answer
 
 class Question:
@@ -68,7 +69,7 @@ class Question:
 
     def print_question(self):
         """Function to print the entiry question"""
-        category = "$CATEGORY: " + self.__category + "\n" + "\n" if self.__category != '' else ''
+        category = "$CATEGORY: " + self.__category + "\n" + "\n" if not SF.string_empty_or_whitespace(self.__category) else ''
         return  category \
                 + self.create_question_text() \
                 + "\n"

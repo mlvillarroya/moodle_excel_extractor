@@ -6,6 +6,7 @@ from os import path as OSPath
 from enum import Enum
 from openpyxl import Workbook
 import misc.Constants as CS
+import misc.StringFunctions as SF
 from . import ExcelCellStyling
 
 constants_path = OSPath.join(ProjectPaths.get_project_path(), "static", "excel_creation_constants.json")
@@ -30,7 +31,7 @@ class ExcelCreator:
                  create_numeric=False,
                  demo_data=False):
         if excel_mode == ExcelMode.CREATE:
-            self.__folder_path = folder_path if folder_path != '' else ProjectPaths.get_output_path()
+            self.__folder_path = folder_path if not SF.string_empty_or_whitespace(folder_path) else ProjectPaths.get_output_path()
             self.__filename = filename
             self.__full_path = OSPath.join(self.__folder_path, self.__filename)
             self.__wb = Workbook()
