@@ -4,8 +4,8 @@ from .Base.Question import Question
 
 class Numeric(Question):
     """Class Numeric inherits from Question"""
-    def __init__(self,category,code,question,answers_list,general_feedback):
-        super().__init__(category,code,question,answers_list,general_feedback)
+    def __init__(self, category, code, question, answers_list, general_feedback):
+        super().__init__(category, code, question, answers_list, general_feedback)
         try:
             float(answers_list[0].answer)
         except ValueError as e:

@@ -25,7 +25,7 @@ class NumericArray(BaseArray):
         if question[CS.NUMERIC_TOLERANCE_TITLE] is None: 
             question[CS.NUMERIC_TOLERANCE_TITLE] = 0
         return [Answer(question[CS.NUMERIC_CORRECT_VALUE_TITLE],
-                       numeric_tolerance = question[CS.NUMERIC_TOLERANCE_TITLE])]
+                       numeric_tolerance=question[CS.NUMERIC_TOLERANCE_TITLE])]
 
     def _extract_question(self,category,question,answers):
         return Numeric(category,\
