@@ -266,7 +266,11 @@ class ExcelGUI:
         except Exception as e:
             messagebox.showerror("Error", f"There's been an error with the file: {e.__str__()} ")
             return
-        excel_questions = excel.extract_questions_from_workbook()
+        try:
+            excel_questions = excel.extract_questions_from_workbook()
+        except ValueError as e:
+            messagebox.showerror("Error", f"There's been an error with the file: {e.__str__()} ")
+            return
         if "Multiple choice" in excel_questions:
             multiple_choice_array = MultipleChoiceArray(excel_questions["Multiple choice"])
             self.__multiple_choice_questions['successful'] = multiple_choice_array.successful_answers
