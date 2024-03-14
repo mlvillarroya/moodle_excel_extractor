@@ -261,7 +261,11 @@ class ExcelGUI:
     def extract_excel(self, enable_button: ttk.Button):
         if not os.path.isfile(os.path.join(self.excel_folder_path, self.excel_filename)):
             return
-        excel = ExcelExtractor(os.path.join(self.excel_folder_path, self.excel_filename))
+        try:
+            excel = ExcelExtractor(os.path.join(self.excel_folder_path, self.excel_filename))
+        except Exception as e:
+            messagebox.showerror("Error", f"There's been an error with the file: {e.__str__()} ")
+            return
         excel_questions = excel.extract_questions_from_workbook()
         if "Multiple choice" in excel_questions:
             multiple_choice_array = MultipleChoiceArray(excel_questions["Multiple choice"])
